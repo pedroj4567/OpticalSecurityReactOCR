@@ -1,8 +1,10 @@
+import {Outlet} from 'react-router-dom'
+
 const AuthLayout = () => {
   return (
-    <div>
-        Desde el componente de autenticacion
-    </div>
+    <main className= "h-screen">
+        <Outlet/>
+    </main>
   )
 }
 

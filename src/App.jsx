@@ -1,8 +1,8 @@
 import {BrowserRouter, Routes,Route} from 'react-router-dom'
 
-import { OfficerLayout } from "./layouts"
+import { OfficerLayout,AuthLayout } from "./layouts"
 
-import { StartPage,VisitsPage } from './pages'
+import { StartPage,VisitsPage,LoginPage } from './pages'
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -16,6 +16,11 @@ function App() {
     <>
         <BrowserRouter>
             <Routes >
+
+                <Route path='/' element={<AuthLayout/>}>
+                    <Route index element={<LoginPage/>}/>
+                </Route>
+
                 <Route path='/officer' element={<OfficerLayout/>}>
                     <Route index element={<StartPage/>}/>
                     <Route path='visits' element={<VisitsPage/>}/>

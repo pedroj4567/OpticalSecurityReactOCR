@@ -1,11 +1,10 @@
 import  Webcam  from "react-webcam";
-import { Button } from '@mui/material';
 
 
 const Camera = ({setIsloadingImg,setImg}) => {
   const videoConstraints = {
-    width: 1000,
-    height: 400,
+    width: 2100,
+    height: 1024,
     facingMode: "user",
   };
 
@@ -13,14 +12,14 @@ const Camera = ({setIsloadingImg,setImg}) => {
     <div className="relative" >
       <Webcam
         audio={false}
-        height={680}
+  
         screenshotFormat="image/jpeg"
-        width={1030}
-        videoConstraints={videoConstraints}
-        className=" rounded-xl"
+      
+        // videoConstraints={videoConstraints}
+        className=" rounded-xl mx-auto w-1/2"
       >
         {(e) => (
-            <div className="absolute rounded-xl w-full h-full top-0 hover:bg-white/50  cursor-pointer  transition-all flex items-center justify-center">
+            <div className="absolute rounded-xl w-1/2 mx-auto top-0 right-0 left-0 h-full hover:bg-white/50  cursor-pointer  transition-all ">
                 <button 
                   className=" text-transparent text-2xl font-semibold   w-full h-full rounded-lg hover:text-[#001C30]"
                   onClick={()=>{
@@ -37,6 +36,9 @@ const Camera = ({setIsloadingImg,setImg}) => {
                   }}
                   >
                   Capturar
+                </button>
+                <button className="w-full border mt-2">
+                  Tomar Foto
                 </button>
             </div>
         )}

@@ -4,7 +4,7 @@ import {Outlet} from 'react-router-dom'
 
 const OfficerLayout = () => {
   return (
-    <main className=' flex '>
+    <main className=' flex relative '>
         
           <Navside/>
           <Outlet/>
