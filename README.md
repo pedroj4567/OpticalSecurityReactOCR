@@ -3,7 +3,7 @@
 
 # TO-DO: 
 
-- [ ]  Crear modulo de visitas. 
+- [x]  Crear modulo de visitas. 
 - [ ]  Insertar Tabla para los datos de las visitas. 
 - [ ]  Crear modal para guardar los datos de las visitas. 
 - [ ]  Agregar eventos al eliminar o editar visita. 
