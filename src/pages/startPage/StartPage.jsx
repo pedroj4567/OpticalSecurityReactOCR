@@ -12,10 +12,10 @@ const StartPage = () => {
             </div>
         </div>
 
-        <div className=" mt-10 h-1/2  flex flex-row justify-between ">
+        <div className=" mt-10">
 
           <Camera/>
-          <SectionInfo/>
+          
         </div>
 
        
