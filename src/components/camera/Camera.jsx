@@ -1,7 +1,7 @@
 import  Webcam  from "react-webcam";
 
 
-const Camera = ({setIsloadingImg,setImg}) => {
+const Camera = ({}) => {
   const videoConstraints = {
     width: 2100,
     height: 1024,
@@ -9,36 +9,27 @@ const Camera = ({setIsloadingImg,setImg}) => {
   };
 
   return (
-    <div className="relative" >
+    <div className=" flex flex-col items-center justify-center mt-4" >
+    
+
+
       <Webcam
         audio={false}
-  
         screenshotFormat="image/jpeg"
-      
         // videoConstraints={videoConstraints}
-        className=" rounded-xl mx-auto w-1/2"
+        className=" rounded-xl w-2/3"
       >
         {(e) => (
-            <div className="absolute rounded-xl w-1/2 mx-auto top-0 right-0 left-0 h-full hover:bg-white/50  cursor-pointer  transition-all ">
-                <button 
-                  className=" text-transparent text-2xl font-semibold   w-full h-full rounded-lg hover:text-[#001C30]"
+            <div className="  flex justify-center mt-8 ">
+                <button className=" px-12 py-2 rounded-lg bg-[#522b5b] text-white hover:bg-[#652e72] transition-all"
                   onClick={()=>{
                     const { getScreenshot } = e;
                     const imagen = getScreenshot();
-                    if(imagen.length > 0){
-                      setImg(imagen)
-                    }
-                    setIsloadingImg(true)
-                    setTimeout(()=>{
-                      setIsloadingImg(false)
-                    },2000)
+                    console.log(imagen)
                     
                   }}
-                  >
-                  Capturar
-                </button>
-                <button className="w-full border mt-2">
-                  Tomar Foto
+                >
+                  Capturar Imagen
                 </button>
             </div>
         )}

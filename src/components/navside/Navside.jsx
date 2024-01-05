@@ -20,49 +20,48 @@ const Navside = () => {
   hiddenLetters();
 
   return (
-    <aside className="realative">
+    <aside className="absolute h-screen">
       <ButtonNavSide menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
 
       <nav
-        className={`h-screen ${
-          menuIsOpen ? "opacity-100 w-[230px] " : "opacity-0 delay-75 w-[0px] "
-        }  text-[#DAFFFB] delay-200 transition-all bg-[#016A70] flex flex-col justify-evenly`}
+        className={`h-full ${
+          menuIsOpen ? "opacity-100 w-[200px] " : "opacity-0 delay-75 w-[0px] "
+        }  text-[#DAFFFB] delay-200 transition-all bg-[#522b5b] trasition-all flex flex-col justify-evenly shadow-xl shadow-slate-500`}
       >
-        <div className="h-[240px] flex flex-col justify-center items-center rounded-lg border-b-slate-950 relative">
-          <div
-            className={`${!menuIsOpen ? "p-0" : "p-2"} transition-all`}
-          ></div>
-
-          <div className={`${!menuIsOpen ? "hidden fade" : ""}`}>
-            <p className="text-[#FFFFFF] font-semibold px-4  rounded-xl">
-              {"Pedro Acosta"}
-            </p>
-          </div>
+        
+        <div className="h-[150px]  flex items-center justify-center ">
+          <p className="font-bold text-2xl">Optical<span className="text-black">Shield</span>  </p>
         </div>
 
-        <div className="w-[95%] mx-auto bg-[#DAFFFB]  h-[0.5px] "></div>
+        <div className="w-[95%] mx-auto bg-[#FFFFFF]  h-[0.5px] "></div>
 
         <div className=" h-full my-4">
-          <ul className="py-8 flex flex-col">
+          <ul className="py-8 flex flex-col text-white">
             <Link
               to="/officer"
-              className=" hover:bg-[#DAFFFB]  hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
+              className=" hover:bg-[#FFFFFF]/75 rounded-md  hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
             >
               {" "}
               <span className="text">Inicio</span>
             </Link>
             <Link
               to="/officer/visits"
-              className=" hover:bg-[#DAFFFB] hover:text-[#001C30] transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4"
+              className=" hover:bg-[#FFFFFF]/75 rounded-md hover:text-[#001C30] transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4"
             >
               <span className="text">Visita</span>
             </Link>
           </ul>
         </div>
-        <div className="w-[95%] mx-auto bg-[#DAFFFB]  h-[0.5px] "></div>
+
+        <div className="w-[95%] mx-auto bg-[#FFFFFF]  h-[0.5px] "></div>
 
         <div className="h-1/6  flex justify-center items-center">
-          {/* <MenuItems/> */}
+            <Link
+              to="/"
+              classNamE={`${menuIsOpen ? 'opacity-100' : "opacity-0"} hover:bg-[#FFFFFF]/75 rounded-md hover:text-[#001C30] transition-all py-2 px-4 text-lg flex text-white`}
+            >
+              <span className="text">Cerrar Sesion</span>
+            </Link>
         </div>
       </nav>
     </aside>

@@ -6,6 +6,8 @@ import InputField from "./input/InputField";
 import Login from "./login/Login";
 import Button from "./button/Button";
 import ButtonNavside from "./button/ButtonNavside";
+import SectionInfo from "./sectionInfo/SectionInfo";
+import PlateNotFound from "./messages/PlateNotFound";
 
 export {
     Navside,
@@ -15,5 +17,7 @@ export {
     InputField,
     Login,
     Button,
-    ButtonNavside
+    ButtonNavside,
+    SectionInfo,
+    PlateNotFound
 } 

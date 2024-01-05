@@ -2,7 +2,7 @@ import { useState } from "react"
 import Spinner from "../Spinner/Spinner"
 const Button = () => {
   
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   return (
     <div className="w-full  h-[50px] flex justify-center mt-5">

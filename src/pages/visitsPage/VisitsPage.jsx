@@ -1,8 +1,8 @@
 const VisitsPage = () => {
   return (
-    <div>
+    <section className="w-[68%] mx-auto  border">
         <p>Desde la vista de visitas</p>
-    </div>
+    </section>
   )
 }
 
