@@ -12,13 +12,13 @@ const useSimulatedRequest = () => {
   const simulateRequest = useCallback(() => {
     setIsLoading(true);
 
-    // Simulate a request delay
+    // Simular request
     setTimeout(() => {
-      const shouldSucceed = Math.random() < 0.5; // Simulate success or failure randomly
+      const shouldSucceed = Math.random() < 0.5; 
       setIsLoading(false);
       setCompleted(true);
       setHasError(!shouldSucceed);
-    }, 300000);
+    }, 2000);
   }, []);
 
   return { isLoading, completed, hasError, closeError, simulateRequest };

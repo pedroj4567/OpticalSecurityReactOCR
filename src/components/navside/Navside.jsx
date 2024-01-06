@@ -19,6 +19,17 @@ const Navside = () => {
 
   hiddenLetters();
 
+  const navLinks = [
+    {
+      title: "Inicio",
+      link: "/officer",
+    },
+    {
+      title: "Visita",
+      link: "/officer/visits",
+    }
+  ]
+
   return (
     <aside className="absolute h-screen">
       <ButtonNavSide menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
@@ -37,7 +48,18 @@ const Navside = () => {
 
         <div className=" h-full my-4">
           <ul className="py-8 flex flex-col text-white">
-            <Link
+            {
+              navLinks.map((link) => (
+                <Link
+                to={link.link}
+                className=" hover:bg-[#FFFFFF]/75 rounded-md  hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
+              >
+                {" "}
+                <span className="text">{link.title}</span>
+              </Link>
+              ))
+            }
+            {/* <Link
               to="/officer"
               className=" hover:bg-[#FFFFFF]/75 rounded-md  hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
             >
@@ -49,7 +71,7 @@ const Navside = () => {
               className=" hover:bg-[#FFFFFF]/75 rounded-md hover:text-[#001C30] transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4"
             >
               <span className="text">Visita</span>
-            </Link>
+            </Link> */}
           </ul>
         </div>
 

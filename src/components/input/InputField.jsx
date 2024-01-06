@@ -1,4 +1,4 @@
-const InputField = ({label, type, idInput,error}) => {
+const InputField = ({label, type, idInput, error, value, onChange}) => {
   return (
     <div className="relative my-4 flex flex-col">
         <input type={type} id={idInput} className=" w-[370px]  px-2.5 pb-2.5 pt-5 text-sm text-[#000000]  border-0 border-b-2 border-gray-300 appearance-none dark:text--dark dark:border-[#893d9a] dark:focus:border-[#893d9a] focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />

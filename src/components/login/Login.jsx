@@ -1,5 +1,6 @@
 import InputField from "../input/InputField"
 import Button from "../button/Button"
+import { Link } from "react-router-dom";
 
 const Login = () => {
 
@@ -7,10 +8,6 @@ const Login = () => {
     e.preventDefault();
     console.log("funciono")
   }
-
-
-
-
 
   return (
     <div className="mx-auto w-[600px] h-screen flex flex-col justify-center items-center">
@@ -36,8 +33,8 @@ const Login = () => {
             />
             <Button/>
 
-            <div className=" w-[320px] text-center">
-                <p> ¿Olvido su contraseña?</p>
+            <div className=" w-[320px] text-center py-10">
+                <Link to={"/verify"}>¿Olvido su contraseña?</Link>
             </div>
         </form>
     </div>

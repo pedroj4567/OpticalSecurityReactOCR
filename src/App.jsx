@@ -8,6 +8,8 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import SendEmailVerificationPage from './pages/authPages/rememberPsw/SendEmailVerification';
+import RememberPswPage from './pages/authPages/rememberPsw/RememberPswPage';
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
 
                 <Route path='/' element={<AuthLayout/>}>
                     <Route index element={<LoginPage/>}/>
+                    <Route path='verify' element={<SendEmailVerificationPage/>}/>
+                    <Route path='remember' element={<RememberPswPage/>}/>
                 </Route>
 
                 <Route path='/officer' element={<OfficerLayout/>}>
