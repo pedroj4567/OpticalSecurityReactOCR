@@ -37,8 +37,8 @@ const TableVisits = () => {
     }, [])
   
     return (
-      <section className="w-[90%] mx-auto  ">
-        <h1 className="py-5 text-3xl font-bold">Visitas</h1>
+      <section className="w-[90%] mx-auto mt-10  ">
+        {/* <h1 className="py-5 text-3xl font-bold">Visitas</h1> */}
           {/* {hasError && <ErrorMessage msg={`Error message`} btnMsg="Agregar cómo visita" close={closeError}/>} */}
   
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg border-purple-600">

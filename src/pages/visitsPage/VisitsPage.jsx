@@ -38,15 +38,17 @@ const VisitsPage = () => {
   }, [])
 
   return (
-    <section className="w-[68%] mx-auto h-screen border">
+    <section className="w-[68%] mx-auto h-screen">
       <main>
         {isLoading ?
-        <div className="w-full h-screen flex justify-center items-center">
+        <div className="w-full h-screen  flex justify-center items-center">
           <SpinnerDark />
         </div>
         :
         <div>
-             <h1 className="py-5 text-3xl font-bold">Visitas</h1>
+            <div className=" px-5 text-[#522b5b] mt-5">
+              <h1 className="py-5 text-3xl font-semibold">Gestion de visitas</h1>
+            </div>
             <TableVisits />
         </div>}
         
