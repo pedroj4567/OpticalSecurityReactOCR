@@ -1,7 +1,7 @@
 import  Webcam  from "react-webcam";
 
 
-const Camera = ({}) => {
+const Camera = ({setScreenShot}) => {
   const videoConstraints = {
     width: 1024,
     height: 720,
@@ -26,6 +26,7 @@ const Camera = ({}) => {
                     const { getScreenshot } = e;
                     const imagen = getScreenshot();
                     console.log(imagen)
+                    setScreenShot(imagen)
                     
                   }}
                 >
