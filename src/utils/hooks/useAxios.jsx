@@ -9,19 +9,25 @@ axios.defaults.baseURL = "https://opticalshiledservice.onrender.com/api/v1"
 const useAxios = ({ url, method, body = null, headers = null }) => {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState('');
-    const [loading, setloading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const fetchData = () => {
-        axios[method](url, JSON.parse(headers), JSON.parse(body))
-            .then((res) => {
-                setResponse(res.data);
-            })
-            .catch((err) => {
-                setError(err);
-            })
-            .finally(() => {
-                setloading(false);
-            });
+        axios({
+            method,
+            url,
+            data: body ? JSON.parse(body) : null,
+            headers: headers ? JSON.parse(headers) : {},
+            withCredentials: true,  // Try setting this to see if it bypasses CORS
+        })
+        .then((res) => {
+            setResponse(res.data);
+        })
+        .catch((err) => {
+            setError(err);
+        })
+        .finally(() => {
+            setLoading(false);
+        });
     };
 
     useEffect(() => {

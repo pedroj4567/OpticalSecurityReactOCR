@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import CommunityUsers from './CommunityUsers'
 import { UserCommunityForm } from './UserCommunityForm'
+import ErrorMessage from '../messages/ErrorMessage';
+
 
 export const CommunityComponent = () => {
 
+
   const [formData, setFormData] = useState({
-    id: '',
     email: '',
     password: '',
   });
@@ -23,7 +25,7 @@ export const CommunityComponent = () => {
             <CommunityUsers />
         </div>
         <div className='flex-1'>
-            <UserCommunityForm handleChange={handleChange} formData={formData}/>
+            <UserCommunityForm handleChange={handleChange} formData={formData} setformData={setFormData}/>
         </div>
     </div>
   )

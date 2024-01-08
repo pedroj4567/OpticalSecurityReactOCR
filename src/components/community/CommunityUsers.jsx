@@ -3,31 +3,27 @@ import useSimulatedRequest from "../../utils/hooks/useSimulatedRequest";
 import ErrorMessage from "../messages/ErrorMessage";
 import Button from "../button/Button";
 import SpinnerDark from "../Spinner/SpinnerDark";
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+
 
 const CommunityUsers = () => {
 
     const usersData = [
       {
-        owner: "Jose Perez",
-        plate: "3lk344",
-        vehicle: "Car",
-        color_vehicle: "#ffffff",
-        model: "Fiat one"
+       id: 1,
+       email: "valero@gmail.com",
+       password: "glhlhl"
       },
       {
-        owner: "Jose Perez",
-        plate: "3lk344",
-        vehicle: "Car",
-        color_vehicle: "#ffffff",
-        model: "Fiat one"
-      },
-      {
-        owner: "Jose Perez",
-        plate: "3lk344",
-        vehicle: "Car",
-        color_vehicle: "#ffffff",
-        model: "Fiat one"
-      }
+        id: 1,
+        email: "valero@gmail.com",
+        password: "glhlhl"
+       },
+       {
+        id: 1,
+        email: "valero@gmail.com",
+        password: "glhlhl"
+       },
     ]
   
     const { isLoading, completed, hasError, closeError, simulateRequest } = useSimulatedRequest();
@@ -46,19 +42,13 @@ const CommunityUsers = () => {
                 <thead class="text-xs text-slate-100 uppercase  bg-[#522b5b] ">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Visitante
+                            ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Vehículo
+                            Email
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Placa
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Color
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Modelo
+                            Password
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Acciones
@@ -71,7 +61,7 @@ const CommunityUsers = () => {
                     <div class="px-6 py-20 w-full  flex justify-center items-center">
                                     <SpinnerDark />  
                     </div>
-                    : completed && hasError == false && usersData.length > 0 &&
+                    : 
                     <tbody className="border-purple-600">
                         {
                             usersData.map((user) =>{
@@ -79,22 +69,24 @@ const CommunityUsers = () => {
                                   <>
                                     <tr class="bg-white border-b text-gray-700 dark:border-purple-600">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                        {user.owner}
+                                        {user.id}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {user.vehicle}
+                                        {user.email}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {user.plate}
+                                        {user.password}
                                     </td>
+                                   
                                     <td class="px-6 py-4">
-                                        {user.color_vehicle}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {user.model}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline flex items-center">
+                                        <FaEdit className="w-4 h-4 mr-2" />
+                                          Edit
+                                      </button>
+                                      <button className="font-medium text-red-600 dark:text-red-500 hover:underline flex items-center">
+                                          <FaTrashAlt className="w-4 h-4 mr-2" />
+                                          Delete
+                                      </button>
                                     </td>
                                     </tr>
                                 </>
@@ -102,10 +94,7 @@ const CommunityUsers = () => {
                               })
                         }
                     </tbody>
-                     ? completed && hasError == true : 
-                     <div class="px-6 py-20 w-full  flex justify-center items-center">
-                        <button className="border w-[60%] h-[45px] rounded-lg bg-[#522b5b] hover:bg-[#6d3978] transition-all text-[#FFFFFF]">Error, Reload</button> 
-                    </div>
+                    
                  
                     
                   }
