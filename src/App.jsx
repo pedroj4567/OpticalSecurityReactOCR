@@ -10,6 +10,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import SendEmailVerificationPage from './pages/authPages/rememberPsw/SendEmailVerification';
 import RememberPswPage from './pages/authPages/rememberPsw/RememberPswPage';
+import CommunityPage from './pages/communityPage/CommunityPage';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                 <Route path='/officer' element={<OfficerLayout/>}>
                     <Route index element={<StartPage/>}/>
                     <Route path='visits' element={<VisitsPage/>}/>
+                    <Route path='community' element={<CommunityPage/>}/>
                 </Route>
             </Routes>
 

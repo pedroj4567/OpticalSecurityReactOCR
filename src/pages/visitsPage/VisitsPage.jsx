@@ -4,6 +4,7 @@ import useSimulatedRequest from "../../utils/hooks/useSimulatedRequest";
 import Spinner from "../../components/Spinner/Spinner";
 import TableVisits from "../../components/table/TableVisits";
 import SpinnerDark from "../../components/Spinner/SpinnerDark.jsx";
+import useAxios from "../../utils/hooks/useAxios.jsx";
 
 const VisitsPage = () => {
 
@@ -32,6 +33,22 @@ const VisitsPage = () => {
   ]
 
   const { isLoading, completed, hasError, closeError, simulateRequest } = useSimulatedRequest();
+
+  
+  const { response, loading, error } = useAxios({
+    method: 'post',
+    url: '/recognition/upload',
+    headers: JSON.stringify({ accept: '*/*' }),
+    body: JSON.stringify({
+        upload: 'Sample text',
+    }),
+    // body: JSON.stringify({
+    //     upload: 'Sample text',
+    // }),
+});
+useEffect(() => {
+    console.log(response, loading, error)
+}, [response, loading, error])
 
   useEffect(() => {
     simulateRequest()
