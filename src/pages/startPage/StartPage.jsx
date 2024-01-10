@@ -6,6 +6,7 @@ import SpinnerDisappear from "../../components/Spinner/SpinnerDissapear";
 import { VerifyPlate } from "../../components/startPage/VerifyPlate";
 import SpinnerDark from "../../components/Spinner/SpinnerDark";
 import useAxios from "../../utils/hooks/useAxios";
+import { Grid } from "../../components/gridNavigation/Grid";
 const StartPage = () => {
 
   const { isLoading, completed, hasError, closeError, simulateRequest } = useSimulatedRequest();
@@ -50,8 +51,8 @@ const StartPage = () => {
   return (
     <section className="w-4/6 mx-auto h-screen p-9 flex flex-col ">
       
-     
-     <SpinnerDisappear />
+     <Grid/>
+     {/* <SpinnerDisappear />
 
         <>
           <div className=" w-full h-[44px] flex justify-between px-4 items-center ">
@@ -83,7 +84,7 @@ const StartPage = () => {
                 }
               </div>
         </>
-        
+         */}
 
        
     </section>

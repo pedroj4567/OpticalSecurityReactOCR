@@ -9,7 +9,7 @@ const Camera = ({setScreenShot}) => {
   };
 
   return (
-    <div className=" flex  items-center justify-center  mx-auto relative " >
+    <div className="w-full flex h-1/2 items-center justify-center  mx-auto relative " >
     
 
 
@@ -17,7 +17,7 @@ const Camera = ({setScreenShot}) => {
         audio={false}
         screenshotFormat="image/jpeg"
 
-        className=" rounded-md h-[480px] w-full  object-cover relative"
+        className=" rounded-md h-[100%] w-full  object-cover relative"
       >
         {(e) => (
             <div className="  flex justify-center mt-8 absolute bottom-0 mb-5  rounded-md p-1 border-2">
