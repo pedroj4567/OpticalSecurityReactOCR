@@ -6,28 +6,30 @@ import SpinnerDisappear from "../../components/Spinner/SpinnerDissapear";
 import { VerifyPlate } from "../../components/startPage/VerifyPlate";
 import SpinnerDark from "../../components/Spinner/SpinnerDark";
 import useAxios from "../../utils/hooks/useAxios";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import { GridNavigation } from "../../components/gridNavigation/GridNavigation";
 const StartPage = () => {
 
   const { isLoading, completed, hasError, closeError, simulateRequest } = useSimulatedRequest();
   const [screenShot, setScreenShot] = useState(null)
-
+  
+  const baseURL = "http://localhost:3200/api/v1/recognition/upload"
   const fetchData = async () => {
-    try {
-      const request = await axios.post('recognition/upload',
-          {
-            upload: screenShot
-          }
-        )
     
-    const { data } = request;
-    console.log(data)
-    } catch (error) {
-      console.error(error)
-    }
-  };
+    const { data } = await axios
+      .post(baseURL, {
+        upload: screenShot
+      })
 
+    console.log(data)
+      
+    
+    
+
+      
+
+   
+  };
 //   function getPlate(){
 //      const { response, loading, error } = useAxios({
 //     method: 'post',

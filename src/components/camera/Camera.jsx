@@ -25,7 +25,7 @@ const Camera = ({setScreenShot}) => {
                   onClick={()=>{
                     const { getScreenshot } = e;
                     const imagen = getScreenshot();
-                    console.log(imagen)
+                    
                     setScreenShot(imagen)
                     
                   }}
