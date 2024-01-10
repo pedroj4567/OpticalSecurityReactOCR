@@ -3,32 +3,27 @@ import useSimulatedRequest from "../../utils/hooks/useSimulatedRequest";
 import ErrorMessage from "../messages/ErrorMessage";
 import Button from "../button/Button";
 import SpinnerDark from "../Spinner/SpinnerDark";
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 
 
-const CommunityFamilies = () => {
+const CommunityUsers = ({fetchData, response, loading, error}) => {
 
+  console.log(response)
     const usersData = [
       {
        id: 1,
-       name: "Jose",
-       n_address: "Terrazas del mar",
-       n_house: 10,
-       phone: "04265838730",
+       email: "valero@gmail.com",
+       password: "glhlhl"
       },
       {
         id: 2,
-        name: "Jose",
-        n_address: "Terrazas del mar",
-        n_house: 10,
-        phone: "04265838730",
+        email: "valero@gmail.com",
+        password: "glhlhl"
        },
        {
         id: 3,
-        name: "Jose",
-        n_address: "Terrazas del mar",
-        n_house: 10,
-        phone: "04265838730",
+        email: "valero@gmail.com",
+        password: "glhlhl"
        },
     ]
   
@@ -39,10 +34,13 @@ const CommunityFamilies = () => {
     }, [])
   
     return (
-      <section className="w-[70%] mt-2 ">
+      <section className="w-[100%] mt-10 flex flex-col">
         {/* <h1 className="py-5 text-3xl font-bold">Visitas</h1> */}
           {/* {hasError && <ErrorMessage msg={`Error message`} btnMsg="Agregar cómo visita" close={closeError}/>} */}
-  
+          <button className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
+              Create
+              <FaPlusCircle className="w-4 h-4 ml-2" />
+          </button>
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg border-purple-600">
             <table class="w-full text-sm text-left rtl:text-right border-[#522b5b] text-white ">
                 <thead class="text-xs text-slate-100 uppercase  bg-[#522b5b] ">
@@ -51,16 +49,10 @@ const CommunityFamilies = () => {
                             ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Familia
+                            Email
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Dirección
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Casa n°
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            teléfono
+                            Password
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Acciones
@@ -84,16 +76,10 @@ const CommunityFamilies = () => {
                                         {user.id}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {user.name}
+                                        {user.email}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {user.n_address}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {user.n_house}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {user.phone}
+                                        {user.password}
                                     </td>
                                    
                                     <td class="px-6 py-4">
@@ -124,4 +110,4 @@ const CommunityFamilies = () => {
     )
   }
    
-  export default CommunityFamilies
+  export default CommunityUsers

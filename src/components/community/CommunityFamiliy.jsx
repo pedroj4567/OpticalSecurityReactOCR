@@ -3,26 +3,36 @@ import useSimulatedRequest from "../../utils/hooks/useSimulatedRequest";
 import ErrorMessage from "../messages/ErrorMessage";
 import Button from "../button/Button";
 import SpinnerDark from "../Spinner/SpinnerDark";
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 
 
-const CommunityUsers = () => {
+const CommunityFamily = ({fetchData, response, loading, error}) => {
+    useEffect(() => {
+        console.log(response, error, loading)
+
+    }, [response, error])
 
     const usersData = [
       {
        id: 1,
-       email: "valero@gmail.com",
-       password: "glhlhl"
+       name: "Jose",
+       n_address: "Terrazas del mar",
+       n_house: 10,
+       phone: "04265838730",
       },
       {
         id: 2,
-        email: "valero@gmail.com",
-        password: "glhlhl"
+        name: "Jose",
+        n_address: "Terrazas del mar",
+        n_house: 10,
+        phone: "04265838730",
        },
        {
         id: 3,
-        email: "valero@gmail.com",
-        password: "glhlhl"
+        name: "Jose",
+        n_address: "Terrazas del mar",
+        n_house: 10,
+        phone: "04265838730",
        },
     ]
   
@@ -33,10 +43,13 @@ const CommunityUsers = () => {
     }, [])
   
     return (
-      <section className="w-[70%] mt-2">
+      <section className="w-[100%] mt-10 flex flex-col">
         {/* <h1 className="py-5 text-3xl font-bold">Visitas</h1> */}
           {/* {hasError && <ErrorMessage msg={`Error message`} btnMsg="Agregar cómo visita" close={closeError}/>} */}
-  
+          <button className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
+              Create
+              <FaPlusCircle className="w-4 h-4 ml-2" />
+          </button>
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg border-purple-600">
             <table class="w-full text-sm text-left rtl:text-right border-[#522b5b] text-white ">
                 <thead class="text-xs text-slate-100 uppercase  bg-[#522b5b] ">
@@ -45,10 +58,16 @@ const CommunityUsers = () => {
                             ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Email
+                            Familia
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Password
+                            Dirección
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Casa n°
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            teléfono
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Acciones
@@ -72,19 +91,25 @@ const CommunityUsers = () => {
                                         {user.id}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {user.email}
+                                        {user.name}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {user.password}
+                                        {user.n_address}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {user.n_house}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {user.phone}
                                     </td>
                                    
                                     <td class="px-6 py-4">
-                                    <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline flex items-center">
+                                    <button className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center mb-2">
                                         <FaEdit className="w-4 h-4 mr-2" />
                                           Edit
                                       </button>
-                                      <button className="font-medium text-red-600 dark:text-red-500 hover:underline flex items-center">
-                                          <FaTrashAlt className="w-4 h-4 mr-2" />
+                                      <button className="font-medium p-1 rounded bg-red-600 text-white  hover:bg-red-400 flex items-center">
+                                          <FaTrashAlt className="w-4 h-4 mr-2 " />
                                           Delete
                                       </button>
                                     </td>
@@ -106,4 +131,4 @@ const CommunityUsers = () => {
     )
   }
    
-  export default CommunityUsers
+  export default CommunityFamily
