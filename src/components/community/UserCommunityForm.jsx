@@ -1,13 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../button/Button'
 import InputField from '../input/InputField'
 import { v4 as uuidv4 } from 'uuid';
 
 
-export const UserCommunityForm = ({handleChange, formData, setformData, id}) => {
+export const UserCommunityForm = ({id, setId, toggleForm}) => {
 
   const [isVisible, setIsVisible] = useState(false);
 
+  
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
     useEffect(() => {
         setTimeout(() => {
             setIsVisible(true);
@@ -17,7 +30,7 @@ export const UserCommunityForm = ({handleChange, formData, setformData, id}) => 
 
   useEffect(() => {
     if(id){
-        console.log("Buscar por id")
+        console.log("Buscar por id", id)
     }
   }, [])
 
@@ -41,10 +54,11 @@ export const UserCommunityForm = ({handleChange, formData, setformData, id}) => 
     if (Object.keys(currentErrors).length === 0) {
       // Handle form submission logic here (e.g., send data to backend)
       console.log('Form data:', formData);
-      setformData({
+      setFormData({
         email: '',
         password: '',
       })
+      toggleForm()
     } else {
       setErrors(currentErrors);
     }
@@ -70,10 +84,14 @@ export const UserCommunityForm = ({handleChange, formData, setformData, id}) => 
     if (Object.keys(currentErrors).length === 0) {
       // Handle form submission logic here (e.g., send data to backend)
       console.log('Form data:', formData);
-      setformData({
+      setFormData({
         email: '',
         password: '',
       })
+      toggleForm()
+      setId(null)
+
+
     } else {
       setErrors(currentErrors);
     }
@@ -90,9 +108,9 @@ export const UserCommunityForm = ({handleChange, formData, setformData, id}) => 
         >
             <div className="text-center mb-2 text-2xl">
                 {id ? 
-                <h2 className="mb-4 text-gray-700">Editar<span className="text-[#61366b] font-semibold">usuario</span></h2>
+                <h2 className="mb-4 text-gray-700">Editar <span className="text-[#61366b] font-semibold">usuario</span></h2>
                 :
-                <h2 className="mb-4 text-gray-700">Añadir nueva<span className="text-[#61366b] font-semibold">usuario</span></h2>}
+                <h2 className="mb-4 text-gray-700">Añadir nuevo <span className="text-[#61366b] font-semibold">usuario</span></h2>}
                 <hr />
             </div>
               <div class="relative z-0 w-full mb-5 group">

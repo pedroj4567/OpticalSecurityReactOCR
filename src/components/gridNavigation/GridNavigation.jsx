@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Grid = () => {
+export const GridNavigation = () => {
   return (
 <div class="grid grid-cols-2 gap-4 h-full py-24 px-4">
 

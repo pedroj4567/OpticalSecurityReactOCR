@@ -46,7 +46,6 @@ useEffect(() => {
   return (
     <div className='flex w-full gap-4'>
         <div className='flex flex-col flex-1'>
-        
             <CommunityUsers 
               response={usersResponse}
               loading={usersLoading}

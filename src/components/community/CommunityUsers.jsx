@@ -1,13 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useSimulatedRequest from "../../utils/hooks/useSimulatedRequest";
 import ErrorMessage from "../messages/ErrorMessage";
 import Button from "../button/Button";
 import SpinnerDark from "../Spinner/SpinnerDark";
 import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
+import { UserCommunityForm } from "./UserCommunityForm";
 
 
 const CommunityUsers = ({fetchData, response, loading, error}) => {
 
+  const [isFormOpen, setIsFormOpen] = useState(false)
+  const [currentUserId, setCurrentUserId] = useState(null)
+
+  function toggleForm() {
+    setIsFormOpen(prev => !prev)
+  }
+  function openEditForm(id){
+    setCurrentUserId(id)
+    setIsFormOpen(prev => !prev)
+  }
   console.log(response)
     const usersData = [
       {
@@ -35,9 +46,10 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
   
     return (
       <section className="w-[100%] mt-10 flex flex-col">
+        {isFormOpen && <UserCommunityForm setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} />}
         {/* <h1 className="py-5 text-3xl font-bold">Visitas</h1> */}
           {/* {hasError && <ErrorMessage msg={`Error message`} btnMsg="Agregar cómo visita" close={closeError}/>} */}
-          <button className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
+          <button onClick={toggleForm} className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
               Create
               <FaPlusCircle className="w-4 h-4 ml-2" />
           </button>
@@ -83,7 +95,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                                     </td>
                                    
                                     <td class="px-6 py-4">
-                                    <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline flex items-center">
+                                    <button onClick={() => openEditForm(user.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline flex items-center">
                                         <FaEdit className="w-4 h-4 mr-2" />
                                           Edit
                                       </button>
