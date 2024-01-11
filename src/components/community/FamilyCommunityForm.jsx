@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Button from '../button/Button'
 import InputField from '../input/InputField'
 import { v4 as uuidv4 } from 'uuid';
+import { IoMdCloseCircle } from "react-icons/io";
+
 
 export const FamilyCommunityForm = ({id, setId, toggleForm}) => {
 
@@ -109,8 +111,9 @@ export const FamilyCommunityForm = ({id, setId, toggleForm}) => {
        
         <form 
         onSubmit={id ? handleEditSubmit : handleSubmit}
-           className={`shadow-lg h-1/2  bg-white items-center py-12 px-6 border  rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
+           className={`shadow-lg h-1/2 relative bg-white items-center py-12 px-6 border rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
         >
+          <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
             <div className="text-center mb-2 text-2xl">
                 {id ? 
                 <h2 className="mb-4 text-gray-700">Editar <span className="text-[#61366b] font-semibold">usuario</span></h2>

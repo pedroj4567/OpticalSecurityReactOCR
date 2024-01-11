@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { FaClosedCaptioning } from "react-icons/fa";
+import { IoMdCloseCircle } from "react-icons/io";
 
 export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
 
     const [isVisible, setIsVisible] = useState(false);
    
-    
+    const [isLoading, setIsLoading] = useState(false)
+    const [response, setResponse] = useState()
+    const [error, setError] = useState()
+
     const [formData, setFormData] = useState({
       name: '',
       lastName: '',
@@ -115,6 +119,27 @@ export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
         setErrors(currentErrors);
       }
     };
+
+  
+
+  
+  const baseURL = "http://localhost:3200/api/v1/"
+  const fetchData = async () => {
+    try {
+      setIsLoading(true)
+      const { data } = await axios
+      .post(baseURL, {
+        upload: screenShot
+      })
+      console.log("hola", data)
+      setResponse(data)
+    } catch (error) {
+      setError(error)
+    }finally{
+      setIsLoading(false)
+    }
+   
+  };
   
     return (
       <>
@@ -125,7 +150,7 @@ export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
           onSubmit={id ? handleEditSubmit : handleSubmit}
              className={`shadow-lg h-5/6  relative bg-white items-center py-12 px-6 border w-[400px] rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
           >
-            <FaClosedCaptioning onClick={toggleForm} className="top-4 absolute right-4"/>
+                    <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
               <div className="text-center mb-2 text-2xl">
                   {id ? 
                   <h2 className="mb-4 text-gray-700">Editar <span className="text-[#61366b] font-semibold">visita</span></h2>
