@@ -9,59 +9,46 @@ import useAxios from "../../utils/hooks/useAxios";
 import axios, { Axios } from "axios";
 import { GridNavigation } from "../../components/gridNavigation/GridNavigation";
 const StartPage = () => {
-
-  const { isLoading, completed, hasError, closeError, simulateRequest } = useSimulatedRequest();
+  const [isLoading, setIsLoading] = useState(false)
+  const [response, setResponse] = useState()
+  const [error, setError] = useState()
   const [screenShot, setScreenShot] = useState(null)
+  const [screenShotIsLoading, setScreenShotIsLoading] = useState(false)
   
   const baseURL = "http://localhost:3200/api/v1/recognition/upload"
   const fetchData = async () => {
-    
-    const { data } = await axios
+    try {
+      setIsLoading(true)
+      const { data } = await axios
       .post(baseURL, {
         upload: screenShot
       })
-
-    console.log(data)
-
-    
-      
-    
-    
-
-      
-
+      console.log("hola", data)
+      setResponse(data)
+    } catch (error) {
+      setError(error)
+    }finally{
+      setIsLoading(false)
+    }
    
   };
-//   function getPlate(){
-//      const { response, loading, error } = useAxios({
-//     method: 'post',
-//     url: '/recognition/upload',
-//     headers: JSON.stringify({ accept: '*/*' }),
-//     body: JSON.stringify({
-//         upload: "ñdjsd"
-//     }),
-// });
-//   }
-//   const { response, loading, error, fetchData } = useAxios({
-//     method: 'post',
-//     url: '/recognition/upload',
-//     headers: {
-//       'Access-Control-Allow-Origin': '*',
-//       'Content-Type': 'application/json',
-//       // otros encabezados...
-//     },
-//     body: JSON.stringify({
-//         upload: "ñdjsd"
-//     }),
-//   });
-  
-  // useEffect(() => {
-  //   fetchData()
-  // }, []);
-  
 
- 
+  useEffect(() =>{
+    setScreenShotIsLoading(true)
+      setTimeout(() => {
+        setScreenShotIsLoading(false)
+      }, 1000)
+      
+  }, [screenShot])
 
+ useEffect(() =>{
+  console.log(response)
+ },[response])
+
+ useEffect(() => {
+  console.log(isLoading);
+  console.log(error);
+}, [error, isLoading])
 
 
   useEffect(() => {
@@ -91,14 +78,12 @@ const StartPage = () => {
               {screenShot !== null &&
               <>
                  <div className="flex-1 border rounded">
-                   <VerifyPlate getPlate={fetchData} screenShot={screenShot}/>
+                   <VerifyPlate getPlate={fetchData} isLoading={screenShotIsLoading} error={error} screenShot={screenShot} data={response}/>
                  </div>
                  <div className="flex-1 ">
-                   <InfoDetail />
+                  {response && <InfoDetail data={response} isLoading={isLoading} />}
                  </div>
               </> 
-             
-              
                }
              </div>
        </>
