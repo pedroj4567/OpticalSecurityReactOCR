@@ -22,6 +22,8 @@ const StartPage = () => {
       })
 
     console.log(data)
+
+    
       
     
     
