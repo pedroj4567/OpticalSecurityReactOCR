@@ -104,7 +104,7 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
                     : 
                     <tbody className="border-purple-600">
                         {
-                            usersData.map((user) =>{
+                            response?.families?.map((user) =>{
                                 return(
                                   <>
                                     <tr class="bg-white border-b text-gray-700 dark:border-purple-600">

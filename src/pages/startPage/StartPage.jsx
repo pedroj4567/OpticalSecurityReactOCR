@@ -8,6 +8,7 @@ import SpinnerDark from "../../components/Spinner/SpinnerDark";
 import useAxios from "../../utils/hooks/useAxios";
 import axios, { Axios } from "axios";
 import { GridNavigation } from "../../components/gridNavigation/GridNavigation";
+import SpinnerTemporal2 from "../../components/Spinner/SpinnerTemporal2";
 const StartPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [response, setResponse] = useState()
@@ -35,6 +36,7 @@ const StartPage = () => {
 
   useEffect(() =>{
     setScreenShotIsLoading(true)
+    setResponse(null)
       setTimeout(() => {
         setScreenShotIsLoading(false)
       }, 1000)
@@ -81,7 +83,10 @@ const StartPage = () => {
                    <VerifyPlate getPlate={fetchData} isLoading={screenShotIsLoading} error={error} screenShot={screenShot} data={response}/>
                  </div>
                  <div className="flex-1 ">
-                  {response && <InfoDetail data={response} isLoading={isLoading} />}
+              
+                    <InfoDetail data={response} isLoading={isLoading} />
+                    
+                  
                  </div>
               </> 
                }
