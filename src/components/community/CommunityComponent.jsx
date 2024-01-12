@@ -16,9 +16,7 @@ const { response: usersResponse, loading: usersLoading, error: usersError, fetch
   url: '/users',
 });
 
-useEffect(() => {
-  fetchUsersData()
-}, []);
+
 
 // Second request for CommunityFamily
 const { response: familyResponse, loading: familyLoading, error: familyError, fetchData: fetchFamilyData } = useAxios({
@@ -26,9 +24,7 @@ const { response: familyResponse, loading: familyLoading, error: familyError, fe
   url: 'family',
 });
 
-useEffect(() => {
-  fetchFamilyData()
-}, []);
+
  
 
   const [formData, setFormData] = useState({
@@ -53,7 +49,7 @@ useEffect(() => {
               fetchData={fetchUsersData}
             />
         </div>
-        <div className='flex flex-col flex-1 '>
+        <div className='flex flex-col flex-[2] '>
         
          <CommunityFamily 
             response={familyResponse}

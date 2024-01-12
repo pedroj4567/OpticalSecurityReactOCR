@@ -5,12 +5,34 @@ import Button from "../button/Button";
 import SpinnerDark from "../Spinner/SpinnerDark";
 import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import { FamilyCommunityForm } from "./FamilyCommunityForm";
+import axios, { Axios } from "axios";
+
 
 
 const CommunityFamily = ({fetchData, response, loading, error}) => {
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)
-  const [currentUserId, setCurrentUserId] = useState(null)
+    const [currentUserId, setCurrentUserId] = useState(null)
+
+    const [isLoadingCreate, setIsLoadingCreate] = useState(false)
+    const [responseCreate, setResponseCreate] = useState()
+    const [errorCreate, setErrorCreate] = useState()
+
+    const [isLoadingDelete, setIsLoadingDelete] = useState(false)
+    const [responseDelete, setResponseDelete] = useState()
+    const [errorDelete, setErrorDelete] = useState()
+
+    const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
+    const [responseUpdate, setResponseUpdate] = useState()
+    const [errorUpdate, setErrorUpdate] = useState()
+
+    const [isLoadingPatch, setIsLoadingPatch] = useState(false)
+    const [responsePatch, setResponsePatch] = useState()
+    const [errorPatch, setErrorPatch] = useState()
+
+    useEffect(() => {
+      fetchData()
+    }, []);
 
   function toggleForm() {
     setIsFormOpen(prev => !prev)
@@ -27,6 +49,96 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
     setCurrentUserId(id)
     setIsFormOpen(prev => !prev)
   }
+  function closeEditForm(id){
+    setCurrentUserId(null)
+    setIsFormOpen(prev => !prev)
+  }
+  const baseURL = "http://localhost:3200/api/v1/family"
+
+  const postMethod = async (body) => {
+    console.log(body)
+    try {
+      setIsLoadingCreate(true)
+      const { data } = await axios
+      .post(`${baseURL}`, {
+        data: {
+          name: body.name,
+          n_address: body.direccion,
+          n_house: body.casa,
+          phone: body.telefono
+        }
+       
+      })
+      console.log("hola", data)
+      setResponseCreate(data)
+    } catch (error) {
+      setErrorCreate(error)
+    }finally{
+      setIsLoadingCreate(false)
+    }
+   
+  };
+    const deleteMethod = async (id) => {
+      try {
+        setIsLoadingDelete(true)
+        const { data } = await axios
+        .delete(`${baseURL}/${id}`)
+        console.log("hola", data)
+        setResponseDelete(data)
+      } catch (error) {
+        console.log("delete error", error)
+        setErrorDelete(error)
+      }finally{
+        setIsLoadingDelete(false)
+      }
+     
+    };
+
+    const updateMethod = async (id, body) => {
+      try {
+        setIsLoadingDelete(true)
+        const { data } = await axios
+        .put(`${baseURL}/${id}`, {
+          data: {
+            name: body.name,
+            n_address: body.direccion,
+            n_house: body.casa,
+            phone: body.telefono
+          }
+         
+        })
+        console.log("hola", data)
+        setResponseDelete(data)
+      } catch (error) {
+        setErrorDelete(error)
+      }finally{
+        setIsLoadingDelete(false)
+      }
+     
+    };
+
+    const patchMethod = async (id, body) => {
+      try {
+        setIsLoadingPatch(true)
+        const { data } = await axios
+        .patch(`${baseURL}/${id}`, {
+          data: {
+            name: body.name,
+            n_address: body.direccion,
+            n_house: body.casa,
+            phone: body.telefono
+          }
+         
+        })
+        console.log("hola", data)
+        setResponsePatch(data)
+      } catch (error) {
+        setErrorDelete(error)
+      }finally{
+        setIsLoadingPatch(false)
+      }
+     
+    };
 
     useEffect(() => {
         console.log(response, error, loading)
@@ -65,8 +177,8 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
   
     return (
       <section className="w-[100%] mt-10 flex flex-col">
-        {isDeleteOpen && <ErrorMessage msg={"¿Estás seguro que quieres eliminar?"} btnMsg={"Eliminar"} close={closeDeleteModal}/>}
-        {isFormOpen && <FamilyCommunityForm setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm}/>}
+        {isDeleteOpen && <ErrorMessage msg={"¿Estás seguro que quieres eliminar?"} btnMsg={"Eliminar"} close={closeDeleteModal} action={deleteMethod} id={currentUserId}/>}
+        {isFormOpen && <FamilyCommunityForm setId={setCurrentUserId} id={currentUserId} toggleForm={closeEditForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
           <button onClick={toggleForm} className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
               Create
               <FaPlusCircle className="w-4 h-4 ml-2" />
@@ -124,8 +236,8 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
                                         {user.phone}
                                     </td>
                                    
-                                    <td class="px-6 py-4">
-                                    <button onClick={() => openEditForm(user.id)} className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center mb-2">
+                                    <td class="px-6 py-4 flex items-center gap-3">
+                                      <button onClick={() => openEditForm(user.id)} className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
                                         <FaEdit className="w-4 h-4 mr-2" />
                                           Edit
                                       </button>

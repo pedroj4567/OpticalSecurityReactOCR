@@ -10,15 +10,108 @@ import { UserCommunityForm } from "./UserCommunityForm";
 const CommunityUsers = ({fetchData, response, loading, error}) => {
 
   const [isFormOpen, setIsFormOpen] = useState(false)
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+
   const [currentUserId, setCurrentUserId] = useState(null)
+
+  const [isLoadingCreate, setIsLoadingCreate] = useState(false)
+  const [responseCreate, setResponseCreate] = useState()
+  const [errorCreate, setErrorCreate] = useState()
+
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false)
+  const [responseDelete, setResponseDelete] = useState()
+  const [errorDelete, setErrorDelete] = useState()
+
+  const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
+  const [responseUpdate, setResponseUpdate] = useState()
+  const [errorUpdate, setErrorUpdate] = useState()
+
+  const [isLoadingPatch, setIsLoadingPatch] = useState(false)
+  const [responsePatch, setResponsePatch] = useState()
+  const [errorPatch, setErrorPatch] = useState()
+
+  useEffect(() => {
+    fetchData()
+  }, []);
 
   function toggleForm() {
     setIsFormOpen(prev => !prev)
+  }
+  function closeDeleteModal(){
+    setIsDeleteOpen(prev => !prev)
+    setCurrentUserId(null)
+  }
+  function openDeleteModal(id){
+    setCurrentUserId(id)
+    setIsDeleteOpen(prev => !prev)
   }
   function openEditForm(id){
     setCurrentUserId(id)
     setIsFormOpen(prev => !prev)
   }
+
+  const baseURL = "http://localhost:3200/api/v1/family"
+
+  const postMethod = async (body) => {
+    try {
+      setIsLoadingCreate(true)
+      const { data } = await axios
+      .post(`${baseURL}`, body)
+      console.log("hola", data)
+      setResponseCreate(data)
+    } catch (error) {
+      setErrorCreate(error)
+    }finally{
+      setIsLoadingCreate(false)
+    }
+   
+  };
+
+    const deleteMethod = async (id) => {
+      try {
+        setIsLoadingDelete(true)
+        const { data } = await axios
+        .post(`${baseURL}/${id}`)
+        console.log("hola", data)
+        setResponseDelete(data)
+      } catch (error) {
+        setErrorDelete(error)
+      }finally{
+        setIsLoadingDelete(false)
+      }
+     
+    };
+
+    const updateMethod = async (id, body) => {
+      try {
+        setIsLoadingUpdate(true)
+        const { data } = await axios
+        .post(`${baseURL}/${id}`, body)
+        console.log("hola", data)
+        setResponseUsetIsLoadingUpdate(data)
+      } catch (error) {
+        setErrorDelete(error)
+      }finally{
+        setIsLoadingUpdate(false)
+      }
+     
+    };
+
+    const patchMethod = async (id, body) => {
+      try {
+        setIsLoadingPatch(true)
+        const { data } = await axios
+        .post(`${baseURL}/${id}`, body)
+        console.log("hola", data)
+        setResponsePatch(data)
+      } catch (error) {
+        setErrorDelete(error)
+      }finally{
+        setIsLoadingPatch(false)
+      }
+     
+    };
+
   console.log(response)
     const usersData = [
       {
@@ -46,7 +139,9 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
   
     return (
       <section className="w-[100%] mt-10 flex flex-col">
-        {isFormOpen && <UserCommunityForm setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} />}
+        {isFormOpen && <UserCommunityForm setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
+        {isDeleteOpen && <ErrorMessage msg={"¿Estás seguro que quieres eliminar?"} btnMsg={"Eliminar"} close={closeDeleteModal} action={deleteMethod} id={currentUserId}/>}
+
         {/* <h1 className="py-5 text-3xl font-bold">Visitas</h1> */}
           {/* {hasError && <ErrorMessage msg={`Error message`} btnMsg="Agregar cómo visita" close={closeError}/>} */}
           <button onClick={toggleForm} className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
@@ -94,13 +189,13 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                                         {user.password}
                                     </td>
                                    
-                                    <td class="px-6 py-4">
-                                    <button onClick={() => openEditForm(user.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline flex items-center">
+                                    <td class="px-6 py-4 flex items-center gap-3">
+                                    <button onClick={() => openEditForm(user.id)} className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
                                         <FaEdit className="w-4 h-4 mr-2" />
                                           Edit
                                       </button>
-                                      <button className="font-medium text-red-600 dark:text-red-500 hover:underline flex items-center">
-                                          <FaTrashAlt className="w-4 h-4 mr-2" />
+                                      <button onClick={() => openDeleteModal(user.id)} className="font-medium p-1 rounded bg-red-600 text-white  hover:bg-red-400 flex items-center">
+                                          <FaTrashAlt className="w-4 h-4 mr-2 " />
                                           Delete
                                       </button>
                                     </td>

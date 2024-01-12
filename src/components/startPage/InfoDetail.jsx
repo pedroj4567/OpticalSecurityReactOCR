@@ -12,7 +12,6 @@ export const InfoDetail = ({data, isLoading}) => {
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [families,setFamilies] = useState([])
 
-
   const baseURL = "http://localhost:3200/api/v1/family"
   const fetchData = async () => {
     try {

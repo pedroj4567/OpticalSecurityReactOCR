@@ -4,6 +4,8 @@
 import { useEffect, useState } from "react";
 import Select from 'react-select'
 import { IoMdCloseCircle } from "react-icons/io";
+import useAxios from "../../utils/hooks/useAxios";
+import axios from "axios";
 
 export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
 
@@ -13,6 +15,45 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
     const [response, setResponse] = useState()
     const [error, setError] = useState()
 
+    const [familyId, setFamilyId] = useState("")
+    const [errors, setErrors] = useState({});
+
+    const [isLoadingCreate, setIsLoadingCreate] = useState(false)
+    const [responseCreate, setResponseCreate] = useState()
+    const [errorCreate, setErrorCreate] = useState()
+
+    const baseURL = "http://localhost:3200/api/v1/visit"
+
+    const {isLoading: isLoadingVisit, response: responseVisit, error: errorVisit, fetchData} = useAxios({
+      method: 'get',
+      url: `visit/${id}`,
+    })
+
+    
+
+    useEffect(() => {
+      if(id){
+        fetchData()
+      }
+    }, [])
+
+    useEffect(() => {
+      setFormData((prev) => ({
+        name: responseVisit?.visit.name,
+        lastName: responseVisit?.visit.lastname,
+        licensePlate: plate.toUpperCase(),
+        brandVehicle: responseVisit?.visit.brand_vehicle,
+        modelVehicle: responseVisit?.visit.model,
+        colorVehicle: responseVisit?.visit.color_vehicle,
+        familyId: responseVisit?.visit.familyId
+      }))
+      console.log("editar usuario", formData)
+    },[responseVisit])
+
+    useEffect(() => {
+      console.log(responseVisit, isLoadingVisit, errorVisit)
+    }, [])
+
     const [formData, setFormData] = useState({
       name: '',
       lastName: '',
@@ -20,56 +61,115 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
       brandVehicle: "",
       modelVehicle: '',
       colorVehicle: '',
-      familyName: "",
       familyId: ""
 
     });
   
     const handleChange = (e) => {
-      
-      const { name, value } = e;
+      console.log(e.name, e.value)
+      const { name, value } = e.target;
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
       }));
     };
+
+    useEffect(() =>{
+      setFormData((prev) => ({
+        ...prev,
+        familyId: familyId
+      }))
+    }, [familyId])
+
       useEffect(() => {
           setTimeout(() => {
               setIsVisible(true);
           }, 50);
-
-          
       }, [families]);
-    const [errors, setErrors,] = useState({});
-  
 
-  
-    useEffect(() => {
-      if(id){
-          console.log("Buscar por id", id)
+    const postMethod = async (body) => {
+      try {
+        setIsLoadingCreate(true)
+        const { data } = await axios
+        .post(`${baseURL}`, {
+          data: {
+            name: body.name,
+            lastname: body.lastName,
+            license_plate_number: body.licensePlate,
+            brand_vehicle: body.brandVehicle,
+            model_vehicle: body.modelVehicle,
+            color_vehicle: body.colorVehicle,
+            familyId: body.familyId
+          }
+        } )
+        console.log("hola", data)
+        setResponseCreate(data)
+      } catch (error) {
+        setErrorCreate(error)
+      }finally{
+        setIsLoadingCreate(false)
       }
-    }, [])
+    };
+
+    const patchMethod = async (body, id) => {
+      try {
+        setIsLoadingCreate(true)
+        const { data } = await axios
+        .patch(`${baseURL}/${id}`, {
+          data: {
+            name: body.name,
+            lastname: body.lastName,
+            license_plate_number: body.licensePlate,
+            brand_vehicle: body.brandVehicle,
+            model_vehicle: body.modelVehicle,
+            color_vehicle: body.colorVehicle,
+            familyId: body.familyId
+          }
+        } )
+        console.log("hola", data)
+        setResponseCreate(data)
+      } catch (error) {
+        setErrorCreate(error)
+      }finally{
+        setIsLoadingCreate(false)
+      }
+    };
   
     const handleSubmit = (e) => {
       e.preventDefault();
   
       let currentErrors = {};
   
-      if (!formData.email.trim()) {
-        currentErrors.email = 'El email es requerido';
+      if (!formData.name.trim()) {
+        currentErrors.name = 'El nombre es requerido';
       }
-      const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-  
-      if (!formData.password.trim()) {
-        currentErrors.password = 'Password is required';
-      } else if (!passwordRegex.test(formData.password)) {
-        currentErrors.password = 'La contraseña debe contener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números';
+      if (!formData.lastName.trim()) {
+        currentErrors.lastName = 'El apellido es requerido';
       }
-    
+      if (!formData.licensePlate.trim()) {
+        currentErrors.licensePlate = 'La placa es requerida';
+      }
+      if (!formData.brandVehicle.trim()) {
+        currentErrors.brandVehicle = 'La marca es requerida';
+      }
+      if (!formData.modelVehicle.trim()) {
+        currentErrors.modelVehicle = 'El modelo es requerido';
+      }
+      if (!formData.colorVehicle.trim()) {
+        currentErrors.colorVehicle = 'El color del vehiculo es requerido';
+      }
+      if (!formData.familyId) {
+        currentErrors.familyId = 'Debe seleccionar una familia';
+      }
   
       if (Object.keys(currentErrors).length === 0) {
         // Handle form submission logic here (e.g., send data to backend)
         console.log('Form data:', formData);
+        if(id){
+          patchMethod(formData, responseVisit.visit.uuid)
+        }else{
+          postMethod(formData)
+        }
         setFormData({
             name: '',
             lastName: '',
@@ -78,7 +178,6 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
             modelVehicle: '',
             colorVehicle: '',
             fechaAdmision: "",
-            familyName: "",
             familyId: ""
         })
         toggleForm()
@@ -86,7 +185,7 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
         setErrors(currentErrors);
       }
     };
-  
+
     const handleEditSubmit = (e) => {
       e.preventDefault();
   
@@ -125,10 +224,9 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
             modelVehicle: '',
             colorVehicle: '',
             fechaAdmision: "",
-            familyName: "",
             familyId: ""
         })
-        toggleForm()
+        // toggleForm()
         setId(null)
   
   
@@ -159,15 +257,16 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
   //   }
    
   // };
+  
 
   const transformData = ()=>{
     return families.map((f)=>{
-      return { value: f.uuid, label:f.name, name:"family" }
+      return { value: f.uuid, label:f.name, name: "familyId" }
     })
   }
  const options = transformData();
  
- console.log(formData)
+//  console.log(formData)
   
   
     return (
@@ -176,7 +275,7 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
          
           <form 
-          onSubmit={id ? handleEditSubmit : handleSubmit}
+          onSubmit={handleSubmit}
              className={`shadow-lg h-5/6  relative bg-white items-center py-12 px-6 border w-[500px] rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
           >
                     <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4 cursor-pointer'/>
@@ -220,7 +319,9 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
               <div className="relative z-0 w-full mb-5 group ">
                 
                  <div className="">
-                   <Select name="familyId" options={options} placeholder="Seleccione una familia" value={formData.familyId}   onChange={handleChange}/>
+                   <Select options={options} placeholder="Seleccione una familia" onChange={(e) => {
+                      setFamilyId(e.value)
+                   }}/>
                  </div>
               </div>
 
