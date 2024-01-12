@@ -2,10 +2,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-
+import Select from 'react-select'
 import { IoMdCloseCircle } from "react-icons/io";
 
-export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
+export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
 
     const [isVisible, setIsVisible] = useState(false);
    
@@ -20,10 +20,14 @@ export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
       brandVehicle: "",
       modelVehicle: '',
       colorVehicle: '',
+      familyName: "",
+      familyId: ""
+
     });
   
     const handleChange = (e) => {
-      const { name, value } = e.target;
+      
+      const { name, value } = e;
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
@@ -33,8 +37,12 @@ export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
           setTimeout(() => {
               setIsVisible(true);
           }, 50);
-      }, []);
-    const [errors, setErrors] = useState({});
+
+          
+      }, [families]);
+    const [errors, setErrors,] = useState({});
+  
+
   
     useEffect(() => {
       if(id){
@@ -69,7 +77,9 @@ export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
             brandVehicle: "",
             modelVehicle: '',
             colorVehicle: '',
-            fechaAdmision: ""
+            fechaAdmision: "",
+            familyName: "",
+            familyId: ""
         })
         toggleForm()
       } else {
@@ -100,6 +110,9 @@ export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
       if (!formData.colorVehicle.trim()) {
         currentErrors.colorVehicle = 'El color del vehiculo es requerido';
       }
+      if (!formData.familyId) {
+        currentErrors.familyId = 'Debe seleccionar una familia';
+      }
 
       if (Object.keys(currentErrors).length === 0) {
         // Handle form submission logic here (e.g., send data to backend)
@@ -111,7 +124,9 @@ export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
             brandVehicle: "",
             modelVehicle: '',
             colorVehicle: '',
-            fechaAdmision: ""
+            fechaAdmision: "",
+            familyName: "",
+            familyId: ""
         })
         toggleForm()
         setId(null)
@@ -144,6 +159,16 @@ export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
   //   }
    
   // };
+
+  const transformData = ()=>{
+    return families.map((f)=>{
+      return { value: f.uuid, label:f.name, name:"family" }
+    })
+  }
+ const options = transformData();
+ 
+ console.log(formData)
+  
   
     return (
       <>
@@ -191,6 +216,12 @@ export const AddVisitForm = ({id, setId, toggleForm, plate}) => {
                   <input type="text" value={formData.colorVehicle} onChange={handleChange} name="colorVehicle" id="floating_password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-[#61366b] focus:outline-none focus:ring-0 focus:border-[#61366b] peer" placeholder=" " required />
                   {errors.colorVehicle && <p className="text-red-500 text-xs mt-1">{errors.colorVehicle}</p>}
                   <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Color</label>
+              </div>
+              <div className="relative z-0 w-full mb-5 group ">
+                
+                 <div className="">
+                   <Select name="familyId" options={options} placeholder="Seleccione una familia" value={formData.familyId}   onChange={handleChange}/>
+                 </div>
               </div>
 
               

@@ -6,17 +6,36 @@ import { AddVisitForm } from './AddVisit'
 
 export const InfoDetail = ({data, isLoading}) => {
   useEffect(() =>{
-    console.log("data", data)
+    console.log("data", data);
   }, [data])
 
   const [isFormOpen, setIsFormOpen] = useState(false)
-  function toggleForm() {
-      setIsFormOpen(prev => !prev)
+  const [families,setFamilies] = useState([])
+
+
+  const baseURL = "http://localhost:3200/api/v1/family"
+  const fetchData = async () => {
+    try {
+     
+      const request = await fetch(baseURL,{})
+      const data = await request.json();
+
+      return data;
+    } catch (error) {
+      console.log(error)
+    }
+   
+  };
+
+  async function toggleForm() {
+      setIsFormOpen(prev => !prev);
+      const { families } = await fetchData();
+      setFamilies([...families])
     }
  
   return (
 <>
-{isFormOpen && <AddVisitForm toggleForm={toggleForm} plate={data?.plate}/>}
+{isFormOpen && <AddVisitForm toggleForm={toggleForm} families={families}  plate={data?.plate}/>}
 {
   isLoading ? (
     <div className='h-full bg-white shadow-md rounded relative'>

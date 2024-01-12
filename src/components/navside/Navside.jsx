@@ -84,7 +84,7 @@ const Navside = () => {
         <div className="h-1/6  flex justify-center items-center">
             <Link
               to="/"
-              classNamE={`${menuIsOpen ? 'opacity-100' : "opacity-0"} hover:bg-[#FFFFFF]/75 rounded-md hover:text-[#001C30] transition-all py-2 px-4 text-lg flex text-white`}
+              className={`${menuIsOpen ? 'opacity-100' : "opacity-0"} hover:bg-[#FFFFFF]/75 rounded-md hover:text-[#001C30] transition-all py-2 px-4 text-lg flex text-white`}
             >
               <span className="text">Cerrar Sesion</span>
             </Link>
