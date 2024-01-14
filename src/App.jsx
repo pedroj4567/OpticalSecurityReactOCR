@@ -12,6 +12,8 @@ import SendEmailVerificationPage from './pages/authPages/rememberPsw/SendEmailVe
 import RememberPswPage from './pages/authPages/rememberPsw/RememberPswPage';
 import CommunityPage from './pages/communityPage/CommunityPage';
 import { ScanPlatePage } from './pages/ScanPlatePage/ScanPlatePage';
+import { PrivateRoute } from './utils/PrivateRoute';
+import RequireAuth from './utils/RequiredAuth';
 
 
 function App() {
@@ -19,7 +21,7 @@ function App() {
   return (
     <>
         <BrowserRouter>
-            <Routes >
+            {/* <Routes >
 
                 <Route path='/' element={<AuthLayout/>}>
                     <Route index element={<LoginPage/>}/>
@@ -33,9 +35,29 @@ function App() {
                     <Route path='visits' element={<VisitsPage/>}/>
                     <Route path='community' element={<CommunityPage/>}/>
                 </Route>
+            </Routes> */}
+            <Routes>
+                <Route path="/" element={<AuthLayout/>}>
+                    <Route index element={<LoginPage/>}/>
+                    <Route path="verify" element={<SendEmailVerificationPage/>}/>
+                    <Route path="remember" element={<RememberPswPage/>}/>
+                </Route>
+                <Route element={<RequireAuth/>}>
+                    <Route path='/officer' element={<OfficerLayout/>}>
+                        <Route index element={<StartPage/>}/>
+                        <Route path='scan' element={<ScanPlatePage/>}/>
+                        <Route path='visits' element={<VisitsPage/>}/>
+                        <Route path='community' element={<CommunityPage/>}/>
+                    </Route>
+                </Route>
+
+                {/* <PrivateRoute path="/officer" element={<OfficerLayout/>}>
+                    <Route index element={<StartPage/>}/>
+                    <Route path="scan" element={<ScanPlatePage/>}/>
+                    <Route path="visits" element={<VisitsPage/>}/>
+                    <Route path="community" element={<CommunityPage/>}/>
+                </PrivateRoute> */}
             </Routes>
-
-
         </BrowserRouter>
     </>
   )

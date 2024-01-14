@@ -5,8 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { IoMdCloseCircle } from "react-icons/io";
 import useAxios from '../../utils/hooks/useAxios';
 import SpinnerTemporal2 from '../Spinner/SpinnerTemporal2';
-
-
+import Select from 'react-select'
 
 export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create, users}) => {
 
@@ -116,7 +115,7 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     }
   };
 
-  const usersData = users.map((user) => {
+  const usersData = users?.map((user) => {
     return { value: user.uuid, label:user.name}
   })
 
@@ -127,7 +126,7 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
        
         <form 
         onSubmit={id ? handleEditSubmit : handleSubmit}
-           className={`shadow-lg h-1/2 relative bg-white items-center py-12 px-6 border rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
+           className={`shadow-lg h-5/6 relative bg-white items-center py-12 px-6 border rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
         >
           <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
             <div className="text-center mb-2 text-2xl">
@@ -163,10 +162,10 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
                 <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Telefono</label>
             </div>
             <Select
-              defaultValue={[colourOptions[2], colourOptions[3]]}
+              defaultValue={[]}
               isMulti
-              name="colors"
-              options={colourOptions}
+              name="users"
+              options={usersData}
               className="basic-multi-select"
               classNamePrefix="select"
             />

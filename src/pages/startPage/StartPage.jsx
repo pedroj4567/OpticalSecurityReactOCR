@@ -16,7 +16,9 @@ const StartPage = () => {
   const [screenShot, setScreenShot] = useState(null)
   const [screenShotIsLoading, setScreenShotIsLoading] = useState(false)
   
-  const baseURL = "http://localhost:3200/api/v1/recognition/upload"
+  // const baseURL = "http://localhost:3200/api/v1/recognition/upload"
+  const baseURL = "https://opticalshiledservice.onrender.com/api/v1/recognition/upload"
+  
   const fetchData = async () => {
     try {
       setIsLoading(true)

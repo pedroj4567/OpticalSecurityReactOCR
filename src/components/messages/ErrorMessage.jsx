@@ -10,23 +10,6 @@ const ErrorMessage = ({ msg, close, action, btnMsg, isCompleted, id }) => {
             setIsVisible(true);
         }, 50);
     }, []);
-    // const baseURL = "http://localhost:3200/api/v1/recognition/upload"
-    // const deleteMethod = async (id) => {
-    //   try {
-    //     setIsLoading(true)
-    //     const { data } = await axios
-    //     .post(`${baseURL}/${id}`, {
-    //       upload: screenShot
-    //     })
-    //     console.log("hola", data)
-    //     setResponse(data)
-    //   } catch (error) {
-    //     setError(error)
-    //   }finally{
-    //     setIsLoading(false)
-    //   }
-     
-    // };
 
     function nextActionErrorMsg() {
         
@@ -38,7 +21,7 @@ const ErrorMessage = ({ msg, close, action, btnMsg, isCompleted, id }) => {
     return (
         <div className="fixed z-20 top-0 left-0 w-full h-full flex items-center justify-center">
             <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
-            <div className={`flex relative flex-col items-center w-1/3 border-[#522b5b] bg-white z-20 p-5 rounded overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}>
+            <div className={`flex relative flex-col items-center w-1/3 border-[#522b5b] bg-white z-20 p-5 rounded overflow-hidden`}>
                 <IoMdCloseCircle onClick={close} className='absolute top-4 right-4'/>
                 <MdErrorOutline color="#522b5b" size={'80'} />
                 <p className='text-xl mb-3'>{msg}</p>

@@ -4,7 +4,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:3200/api/v1/";
+axios.defaults.baseURL = "https://opticalshiledservice.onrender.com/api/v1";
+// axios.defaults.baseURL = "http://localhost:3200/api/v1/";
 
 const useAxios = ({ url, method, body = null, headers = null }) => {
     const [response, setResponse] = useState(null);
