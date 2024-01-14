@@ -14,6 +14,7 @@ import CommunityPage from './pages/communityPage/CommunityPage';
 import { ScanPlatePage } from './pages/ScanPlatePage/ScanPlatePage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import RequireAuth from './utils/RequiredAuth';
+import Register from './components/register/Register';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<AuthLayout/>}>
                     <Route index element={<LoginPage/>}/>
+                    <Route path="register" element={<Register/>}/>
                     <Route path="verify" element={<SendEmailVerificationPage/>}/>
                     <Route path="remember" element={<RememberPswPage/>}/>
                 </Route>

@@ -50,7 +50,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
     setIsFormOpen(prev => !prev)
   }
 
-  const baseURL = "http://localhost:3200/api/v1/family"
+  const baseURL = "http://localhost:3200/api/v1/person"
 
   const postMethod = async (body) => {
     try {
@@ -156,10 +156,10 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                             ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Email
+                            Name
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Password
+                            Asignado a familia
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Acciones

@@ -7,7 +7,7 @@ const Button = ({loading, action}) => {
 
   return (
     <div className="w-full  h-[50px] flex justify-center mt-5">
-      <button onClick={action} className="border w-[340px] h-[45px] rounded-lg bg-[#522b5b] hover:bg-[#6d3978] transition-all text-[#FFFFFF]">{loading ? <Spinner/> : "Ingresar"}</button>
+      <button type="submit" className="border w-[340px] h-[45px] rounded-lg bg-[#522b5b] hover:bg-[#6d3978] transition-all text-[#FFFFFF]">{loading ? <Spinner/> : "Ingresar"}</button>
     </div>
   )
 }
