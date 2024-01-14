@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import ButtonNavSide from "../button/ButtonNavside";
 
-const Navside = () => {
+const NavsideAdmin = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const hiddenLetters = () => {
@@ -22,16 +22,16 @@ const Navside = () => {
   const navLinks = [
     {
       title: "Inicio",
-      link: "/officer",
+      link: "/Admin",
     },
-    // {
-    //   title: "Visita",
-    //   link: "/officer/visits",
-    // },
-    // {
-    //   title: "Comunidad",
-    //   link: "/officer/community",
-    // }
+    {
+      title: "Visita",
+      link: "/Admin/visits",
+    },
+    {
+      title: "Comunidad",
+      link: "/Admin/community",
+    }
   ]
 
   return (
@@ -94,4 +94,4 @@ const Navside = () => {
   );
 };
 
-export default Navside;
+export default NavsideAdmin;

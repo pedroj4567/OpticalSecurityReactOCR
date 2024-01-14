@@ -15,6 +15,7 @@ import { ScanPlatePage } from './pages/ScanPlatePage/ScanPlatePage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import RequireAuth from './utils/RequiredAuth';
 import Register from './components/register/Register';
+import AdminLayout from './layouts/AdminLayout.jsx/AdminLayout';
 
 
 function App() {
@@ -23,7 +24,6 @@ function App() {
     <>
         <BrowserRouter>
             {/* <Routes >
-
                 <Route path='/' element={<AuthLayout/>}>
                     <Route index element={<LoginPage/>}/>
                     <Route path='verify' element={<SendEmailVerificationPage/>}/>
@@ -44,21 +44,34 @@ function App() {
                     <Route path="verify" element={<SendEmailVerificationPage/>}/>
                     <Route path="remember" element={<RememberPswPage/>}/>
                 </Route>
-                
-                    <Route path='/officer' element={<OfficerLayout/>}>
-                        <Route index element={<StartPage/>}/>
-                        <Route path='scan' element={<ScanPlatePage/>}/>
-                        <Route path='visits' element={<VisitsPage/>}/>
-                        <Route path='community' element={<CommunityPage/>}/>
-                    </Route>
                
 
-                {/* <PrivateRoute path="/officer" element={<OfficerLayout/>}>
-                    <Route index element={<StartPage/>}/>
-                    <Route path="scan" element={<ScanPlatePage/>}/>
-                    <Route path="visits" element={<VisitsPage/>}/>
-                    <Route path="community" element={<CommunityPage/>}/>
-                </PrivateRoute> */}
+                <Route
+                    path="/admin"
+                    element={
+                <RequireAuth
+                    allowedRoles={['Admin']} // Adjust the allowed roles based on your requirements
+                    layout={AdminLayout}
+                >
+                    <Route index element={<StartPage />} />
+                    <Route path="scan" element={<ScanPlatePage />} />
+                    <Route path="visits" element={<VisitsPage />} />
+                    <Route path="community" element={<CommunityPage />} />
+                </RequireAuth>
+                }
+                />
+
+                <Route
+                    path="/officer"
+                    element={
+                <RequireAuth
+                    allowedRoles={['Officer']} // Adjust the allowed roles based on your requirements
+                    layout={OfficerLayout}
+                >
+                    <Route index element={<StartPage />} />
+                </RequireAuth>
+                }
+                />
             </Routes>
         </BrowserRouter>
     </>

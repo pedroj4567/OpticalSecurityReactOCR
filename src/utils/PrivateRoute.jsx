@@ -11,5 +11,5 @@ export function PrivateRoute({ children, path, element, ...rest }) {
    return null;
  }
  return <Route {...rest} element={children} />;
-//  return <Route {...rest} >{children}</Route>;
+
 }

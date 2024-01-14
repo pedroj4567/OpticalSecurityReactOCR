@@ -1,10 +1,13 @@
 import InputField from "../input/InputField"
 import Button from "../button/Button"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { decodeToken } from "../../utils/decodeToken";
+import { checkAuth } from "../../utils/checkAuth";
 
 const Login = () => {
+  const navigate = useNavigate();
 
   const [isLoadingAuth, setIsLoadingAuth] = useState(false)
   const [responseAuth, setResponseAuth] = useState()
@@ -16,7 +19,7 @@ const Login = () => {
   });
   const [errors, setErrors] = useState({});
 
-  const baseURL = "https://a550-186-92-101-134.ngrok-free.app/api/v1/auth/login"
+  const baseURL = "https://c1ee-186-92-101-134.ngrok-free.app/api/v1/auth/login"
 
   const authMethod = async (body) => {
     console.log(body)
@@ -29,7 +32,11 @@ const Login = () => {
           password: formData.password
         }
       })
-      setResponseAuth(data)
+      if (data.token) {
+        // Save the token to local storage
+        localStorage.setItem('authToken', data.token);
+        setResponseAuth(data);
+      }
     } catch (error) {
       setErrorAuth(error)
     }finally{
@@ -39,8 +46,31 @@ const Login = () => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const decodedToken = decodeToken(token);
+
+    if (checkAuth()) {
+      // Check if authentication is successful
+      console.log("Authentication successful");
+      console.log("Decoded token", decodedToken);
+
+      // Conditional navigation based on the role in the decoded token
+      if (decodedToken && decodedToken.roleOptions && decodedToken.roleOptions.name) {
+        navigate(`/${decodedToken.roleOptions.name.toLowerCase()}`);
+      }
+    } else {
+      // Handle unsuccessful authentication (optional)
+      console.log("Authentication failed");
+    }
+  }, [responseAuth]);
+
+  useEffect(() => {
     console.log("auth", responseAuth)
     console.log("error", errorAuth)
+    const token = localStorage.getItem('authToken');
+    const decodedToken = decodeToken(token);
+    console.log("decoded token", decodedToken)
+    console.log(checkAuth())
   }, [responseAuth, errorAuth])
 
   const handleChange = (e) => {

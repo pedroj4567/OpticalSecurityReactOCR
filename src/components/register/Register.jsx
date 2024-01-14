@@ -17,8 +17,7 @@ const Register = () => {
     });
     const [errors, setErrors] = useState({});
   
-    const baseURL = "https://opticalshiledservice.onrender.com/api/v1/signup"
-  
+    const baseURL = "https://a550-186-92-101-134.ngrok-free.app/api/v1/auth/signup"  
     const authMethod = async (body) => {
       console.log(body)
       try {
