@@ -120,8 +120,8 @@ const TableVisits = () => {
                                     <td class="px-6 py-4">
                                         {user.model_vehicle}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        {user.licence_plate_number}
+                                    <td class="px-6 py-4 font-bold">
+                                        {user.license_plate_number}
                                     </td>
                                     <td class="px-6 py-4">
                                         {user.color_vehicle}

@@ -42,14 +42,14 @@ function App() {
                     <Route path="verify" element={<SendEmailVerificationPage/>}/>
                     <Route path="remember" element={<RememberPswPage/>}/>
                 </Route>
-                <Route element={<RequireAuth/>}>
+                
                     <Route path='/officer' element={<OfficerLayout/>}>
                         <Route index element={<StartPage/>}/>
                         <Route path='scan' element={<ScanPlatePage/>}/>
                         <Route path='visits' element={<VisitsPage/>}/>
                         <Route path='community' element={<CommunityPage/>}/>
                     </Route>
-                </Route>
+               
 
                 {/* <PrivateRoute path="/officer" element={<OfficerLayout/>}>
                     <Route index element={<StartPage/>}/>

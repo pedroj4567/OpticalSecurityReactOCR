@@ -12,7 +12,7 @@ export const InfoDetail = ({data, isLoading}) => {
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [families,setFamilies] = useState([])
 
-  const baseURL = "http://localhost:3200/api/v1/family"
+  
   const fetchData = async () => {
     try {
      
@@ -51,7 +51,7 @@ export const InfoDetail = ({data, isLoading}) => {
     <div className=' bg-white shadow-md h-full'>
       <div className="px-4 sm:px-0 mx-3">
         <h3 className="text-base font-semibold leading-7 text-gray-900">Info</h3>
-        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">placa: {data?.plate} </p>
+        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-600">placa: <span className='font-bold '>{data?.plate.toUpperCase()}</span> </p>
       </div>
       <div className="mt-1 border-t border-gray-100 mx-3">
         <dl className="divide-y divide-gray-100">
@@ -69,7 +69,7 @@ export const InfoDetail = ({data, isLoading}) => {
           </div>
           <div className="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Familia</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Perez</dd>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{data?.dataCar.Family.name}</dd>
           </div>
         </dl>
       </div>

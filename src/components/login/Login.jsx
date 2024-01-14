@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
 
-  const handleSubmit = e =>{
+  const handleSubmit = async  e =>{
     e.preventDefault();
-    console.log("funciono")
   }
 
   return (

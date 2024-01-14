@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Select from 'react-select'
 import { IoMdCloseCircle } from "react-icons/io";
 import useAxios from "../../utils/hooks/useAxios";
+import toast, { Toaster } from 'react-hot-toast';
+
 import axios from "axios";
 
 export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
@@ -47,7 +49,7 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
         colorVehicle: responseVisit?.visit.color_vehicle,
         familyId: responseVisit?.visit.familyId
       }))
-      console.log("editar usuario", formData)
+      
     },[responseVisit])
 
     useEffect(() => {
@@ -180,9 +182,15 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
             fechaAdmision: "",
             familyId: ""
         })
+
+     toast.success('Visita registrada correctamente');
+
+      setTimeout(()=>{
         toggleForm()
+      },1500)
       } else {
         setErrors(currentErrors);
+        toast.error('Visita No registrada, error del servidor');
       }
     };
 
@@ -272,6 +280,17 @@ export const AddVisitForm = ({id, setId, toggleForm, plate, families}) => {
     return (
       <>
    <div className="fixed z-20 top-0 left-0 w-full h-full flex items-center justify-center">
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          // Define default options
+          className: '',
+          duration: 1300,
+          style: {
+            background: '#522b5b',
+            color: '#fff',
+          }}}
+      />
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
          
           <form 
