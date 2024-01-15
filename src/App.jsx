@@ -46,32 +46,38 @@ function App() {
                 </Route>
                
 
+                
                 <Route
                     path="/admin"
                     element={
                 <RequireAuth
                     allowedRoles={['Admin']} // Adjust the allowed roles based on your requirements
                     layout={AdminLayout}
+                />
+               
+                }
                 >
                     <Route index element={<StartPage />} />
                     <Route path="scan" element={<ScanPlatePage />} />
                     <Route path="visits" element={<VisitsPage />} />
                     <Route path="community" element={<CommunityPage />} />
-                </RequireAuth>
-                }
-                />
+                </Route>
+
 
                 <Route
                     path="/officer"
                     element={
                 <RequireAuth
                     allowedRoles={['Officer']} // Adjust the allowed roles based on your requirements
-                    layout={OfficerLayout}
+                    layout={AdminLayout}
+                />
+               
+                }
                 >
                     <Route index element={<StartPage />} />
-                </RequireAuth>
-                }
-                />
+                    <Route path="visits" element={<VisitsPage />} />
+                </Route>
+                
             </Routes>
         </BrowserRouter>
     </>

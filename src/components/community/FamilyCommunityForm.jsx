@@ -6,10 +6,12 @@ import { IoMdCloseCircle } from "react-icons/io";
 import useAxios from '../../utils/hooks/useAxios';
 import SpinnerTemporal2 from '../Spinner/SpinnerTemporal2';
 import Select from 'react-select'
+import { FamilyCommunityFormStepTwo } from './FamilyCommunityFormStepTwo';
 
 export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create, users}) => {
 
   const [isVisible, setIsVisible] = useState(false);
+  const [isStepTwoOpen, setIsStepTwoOpen] = useState(false)
   const {isLoading, response, error, fetchData} = useAxios({
     method: 'get',
     url: `family/${id}`,
@@ -21,6 +23,10 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     casa: '',
     telefono: '',
   });
+
+  function toggleStepTwo(){
+    setIsStepTwoOpen(prev => !prev)
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -121,12 +127,13 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
 
   return (
     <>
+    
  <div className="fixed z-20 top-0 left-0 w-full h-full flex items-center justify-center">
     <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
-       
+    {isStepTwoOpen && <FamilyCommunityFormStepTwo />}
         <form 
         onSubmit={id ? handleEditSubmit : handleSubmit}
-           className={`shadow-lg h-5/6 relative bg-white items-center py-12 px-6 border rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
+           className={`shadow-lg h-5/6 relative bg-white w-3/4 items-center py-12 px-6 border rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
         >
           <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
             <div className="text-center mb-2 text-2xl">
@@ -169,7 +176,7 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
               className="basic-multi-select"
               classNamePrefix="select"
             />
-            <button type="submit" class="text-white w-full bg-[#522b5b] hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
+            <button onClick={toggleStepTwo} class="text-white w-full bg-[#522b5b] hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
               </>
             }
         </form>

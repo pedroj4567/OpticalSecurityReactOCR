@@ -6,6 +6,7 @@ import SpinnerDark from "../Spinner/SpinnerDark";
 import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import { FamilyCommunityForm } from "./FamilyCommunityForm";
 import axios, { Axios } from "axios";
+import { FamilyCommunityFormStepTwo } from "./FamilyCommunityFormStepTwo";
 
 
 
@@ -177,6 +178,7 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
   
     return (
       <section className="w-[100%] mt-10 flex flex-col">
+      
         {isDeleteOpen && <ErrorMessage msg={"¿Estás seguro que quieres eliminar?"} btnMsg={"Eliminar"} close={closeDeleteModal} action={deleteMethod} id={currentUserId}/>}
         {isFormOpen && <FamilyCommunityForm setId={setCurrentUserId} id={currentUserId} toggleForm={closeEditForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
           <button onClick={toggleForm} className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">

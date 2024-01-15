@@ -11,11 +11,12 @@ const RequireAuth = ({ allowedRoles, layout: Layout }) => {
 
     console.log(decodeToken)
     console.log(auth)
-    return auth && decodedToken.roleOptions && allowedRoles.includes(decodedToken.roleOptions.name) && (
+    return auth && decodedToken.roleOptions && allowedRoles.includes(decodedToken.roleOptions.name) ? (
       <Layout>
         <Outlet />
       </Layout>
-    ) 
+    ) :
+    <Navigate to="/" state={{ from: location }} />;
   };
   
   export default RequireAuth;
