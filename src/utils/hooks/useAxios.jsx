@@ -6,6 +6,8 @@ import axios from 'axios';
 
 // axios.defaults.baseURL = "https://opticalshiledservice.onrender.com/api/v1";
 axios.defaults.baseURL = "http://localhost:3200/api/v1/";
+axios.defaults.baseURL = "https://c1ee-186-92-101-134.ngrok-free.app/api/v1/";
+
 
 const useAxios = ({ url, method, body = null, headers = null }) => {
     const [response, setResponse] = useState(null);

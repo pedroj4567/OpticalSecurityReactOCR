@@ -13,7 +13,7 @@ export const CommunityComponent = () => {
  
 const { response: usersResponse, loading: usersLoading, error: usersError, fetchData: fetchUsersData } = useAxios({
   method: 'get',
-  url: '/users',
+  url: 'person',
 });
 
 

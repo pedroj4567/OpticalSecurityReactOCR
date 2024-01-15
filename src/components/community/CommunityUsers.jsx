@@ -33,6 +33,9 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
   useEffect(() => {
     fetchData()
   }, []);
+  useEffect(() => {
+    console.log(response)
+  }, [response]);
 
   function toggleForm() {
     setIsFormOpen(prev => !prev)
@@ -156,7 +159,13 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                             ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Name
+                            Nombre
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            telefono
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            cedula
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Asignado a familia
@@ -175,7 +184,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                     : 
                     <tbody className="border-purple-600">
                         {
-                            usersData.map((user) =>{
+                            response?.people.map((user) =>{
                                 return(
                                   <>
                                     <tr class="bg-white border-b text-gray-700 dark:border-purple-600">
@@ -183,12 +192,17 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                                         {user.id}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {user.email}
+                                        `${user.name} ${user.lastname}`
                                     </td>
                                     <td class="px-6 py-4">
-                                        {user.password}
+                                        {user.n_phone}
                                     </td>
-                                   
+                                    <td class="px-6 py-4">
+                                        {user.identification}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {user.isFamily}
+                                    </td>
                                     <td class="px-6 py-4 flex items-center gap-3">
                                     <button onClick={() => openEditForm(user.id)} className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
                                         <FaEdit className="w-4 h-4 mr-2" />
