@@ -16,7 +16,7 @@ const RequireAuth = ({ allowedRoles, layout: Layout }) => {
         <Outlet />
       </Layout>
     ) :
-    <Navigate to="/" state={{ from: location }} />;
+    <Navigate to="/"  />;
   };
   
   export default RequireAuth;
