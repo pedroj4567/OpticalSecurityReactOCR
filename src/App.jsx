@@ -37,6 +37,7 @@ function App() {
                     <Route path='community' element={<CommunityPage/>}/>
                 </Route>
             </Routes> */}
+            
             <Routes>
                 <Route path="/" element={<AuthLayout/>}>
                     <Route index element={<LoginPage/>}/>
@@ -69,7 +70,7 @@ function App() {
                     element={
                 <RequireAuth
                     allowedRoles={['Officer']} // Adjust the allowed roles based on your requirements
-                    layout={AdminLayout}
+                    layout={OfficerLayout}
                 />
                
                 }

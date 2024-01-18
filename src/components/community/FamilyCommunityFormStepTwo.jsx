@@ -4,12 +4,9 @@ import { IoMdCloseCircle } from 'react-icons/io'
 import List from 'rc-virtual-list';
 
 
-export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, toggleForm, id, isLoading, isVisible}) => {
+export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, toggleForm, id, isLoading, isVisible, cars, setCars}) => {
 
-    const [cars, setCars] = useState([
-        { carName: '', brand: '', model: '', plate: '', color: '' },
-       
-      ]);
+  
     
       const handleAddCar = () => {
         setCars([...cars,  { carName: '', brand: '', model: '', plate: '', color: '' },]);
@@ -36,7 +33,7 @@ export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, togg
     <>
     <div className="fixed z-30 top-0 left-0 w-full h-full flex items-center justify-center">
       <div
-        className={`shadow-lg h-5/6 relative bg-white border w-3/4 items-center py-12 px-6 border rounded-md flex flex-col justify-evenly `}
+        className={`shadow-lg h-5/6 relative bg-white border w-3/4 items-center py-12 px-6 rounded-md flex flex-col justify-evenly `}
       >
         <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
         <div className="text-center mb-2 text-2xl">

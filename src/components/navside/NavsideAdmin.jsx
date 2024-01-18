@@ -10,9 +10,10 @@ const NavsideAdmin = () => {
     const links = document.querySelectorAll("a");
     links.forEach((link) => {
       if (!menuIsOpen) {
-        link.querySelector(".text").style.display = "none";
+        
+        link.classList.toggle("hide")
       } else {
-        link.querySelector(".text").style.display = "inline";
+        link.classList.toggle("inline");
       }
     });
   };
