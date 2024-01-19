@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import useSession from "../../utils/hooks/useSession";
 import ButtonNavSide from "../button/ButtonNavside";
 
 const NavsideAdmin = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-
+  const navigate = useNavigate();
+  const { cleanStorage } = useSession();
+  
   const hiddenLetters = () => {
     const links = document.querySelectorAll("a");
     links.forEach((link) => {
@@ -34,9 +36,13 @@ const NavsideAdmin = () => {
       link: "/Admin/community",
     }
   ]
+  const handlerSession = () =>{
+    cleanStorage();
+    navigate('/')
+  }
 
   return (
-    <aside className="absolute h-screen">
+    <aside className="fixed h-screen">
       <ButtonNavSide menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
 
       <nav
@@ -46,7 +52,7 @@ const NavsideAdmin = () => {
       >
         
         <div className="h-[150px]  flex items-center justify-center ">
-          <p className="font-bold text-2xl">Optical<span className="text-black">Shield</span>  </p>
+          <p className="font-bold text-2xl text-white">Optical<span className="text-slate-300">Shield</span>  </p>
         </div>
 
         <div className="w-[95%] mx-auto bg-[#FFFFFF]  h-[0.5px] "></div>
@@ -54,8 +60,9 @@ const NavsideAdmin = () => {
         <div className=" h-full my-4">
           <ul className="py-8 flex flex-col text-white">
             {
-              navLinks.map((link) => (
+              navLinks.map((link,index) => (
                 <Link
+                key={index}
                 to={link.link}
                 className=" hover:bg-[#FFFFFF]/75 rounded-md  hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
               >
@@ -83,12 +90,12 @@ const NavsideAdmin = () => {
         <div className="w-[95%] mx-auto bg-[#FFFFFF]  h-[0.5px] "></div>
 
         <div className="h-1/6  flex justify-center items-center">
-            <Link
-              to="/"
-              className={`${menuIsOpen ? 'opacity-100' : "opacity-0"} hover:bg-[#FFFFFF]/75 rounded-md hover:text-[#001C30] transition-all py-2 px-4 text-lg flex text-white`}
+            <span  
+              className={`${menuIsOpen ? 'opacity-100' : "opacity-0"} hover:bg-[#FFFFFF]/75 rounded-md hover:text-[#001C30] cursor-pointer transition-all py-2 px-4 text-lg flex text-white`}
+              onClick={handlerSession}
             >
-              <span className="text">Cerrar Sesion</span>
-            </Link>
+              Cerrar Sesión
+            </span>
         </div>
       </nav>
     </aside>

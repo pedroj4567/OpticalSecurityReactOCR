@@ -9,8 +9,7 @@ const RequireAuth = ({ allowedRoles, layout: Layout }) => {
     const token = localStorage.getItem('authToken');
     const decodedToken = decodeToken(token);
 
-    console.log(decodeToken)
-    console.log(auth)
+   
     return auth && decodedToken.roleOptions && allowedRoles.includes(decodedToken.roleOptions.name) ? (
       <Layout>
         <Outlet />

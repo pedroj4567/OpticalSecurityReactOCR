@@ -18,10 +18,10 @@ const Login = () => {
     password: '',
   });
   const [errors, setErrors] = useState({});
-  // const baseURL = "http://localhost:3200/api/v1/auth/login"
+  const baseURL = "http://localhost:3200/api/v1/auth/login"
 
 
-  const baseURL = "https://aeb6-190-89-31-154.ngrok-free.app/api/v1/auth/login"
+  // const baseURL = "https://aeb6-190-89-31-154.ngrok-free.app/api/v1/auth/login"
 
   const authMethod = async (body) => {
     console.log(body)
@@ -58,7 +58,9 @@ const Login = () => {
 
       // Conditional navigation based on the role in the decoded token
       if (decodedToken && decodedToken.roleOptions && decodedToken.roleOptions.name) {
+        window.location.reload(true);
         navigate(`/${decodedToken.roleOptions.name.toLowerCase()}`);
+        
       }
     } else {
       // Handle unsuccessful authentication (optional)
