@@ -5,14 +5,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { IoMdCloseCircle } from 'react-icons/io';
 
 
-export const UserCommunityForm = ({id, setId, toggleForm}) => {
+export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create}) => {
 
   const [isVisible, setIsVisible] = useState(false);
 
   
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    name: '',
+    lastname: '',
+    n_phone: 0,
+    identification: ""
   });
 
   const handleChange = (e) => {
@@ -40,24 +42,33 @@ export const UserCommunityForm = ({id, setId, toggleForm}) => {
 
     let currentErrors = {};
 
-    if (!formData.email.trim()) {
-      currentErrors.email = 'El email es requerido';
+    if (!formData.name.trim()) {
+      currentErrors.name = 'El nombre es requerido';
     }
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
-    if (!formData.password.trim()) {
-      currentErrors.password = 'Password is required';
-    } else if (!passwordRegex.test(formData.password)) {
-      currentErrors.password = 'La contraseña debe contener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números';
+    
+    if (!formData.lastname.trim()) {
+      currentErrors.lastname = 'El apellido es requerido';
     }
+    
+    if (!formData.n_phone.trim()) {
+      currentErrors.n_phone = 'El numero de telefono es requerido';
+    }
+    
+    if (!formData.identification.trim()) {
+      currentErrors.identification = 'La identificacion es requerida';
+    }
+    
   
 
     if (Object.keys(currentErrors).length === 0) {
       // Handle form submission logic here (e.g., send data to backend)
       console.log('Form data:', formData);
+      create(formData)
       setFormData({
-        email: '',
-        password: '',
+        name: '',
+        lastname: '',
+        n_phone: "",
+        identification: ""
       })
       toggleForm()
     } else {
@@ -117,14 +128,24 @@ export const UserCommunityForm = ({id, setId, toggleForm}) => {
                 <hr />
             </div>
               <div class="relative z-0 w-full mb-5 group">
-                <input type="email" value={formData.email} onChange={handleChange} name="email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-[#61366b] focus:outline-none focus:ring-0 focus:border-[#61366b] peer" placeholder=" " required />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
+                <input type="text" value={formData.name} onChange={handleChange} name="name" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-[#61366b] focus:outline-none focus:ring-0 focus:border-[#61366b] peer" placeholder=" " required />
+                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombre</label>
             </div>
             <div class="relative z-0 w-full mb-5 group">
-                <input type="password" value={formData.password} onChange={handleChange} name="password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-[#61366b] focus:outline-none focus:ring-0 focus:border-[#61366b] peer" placeholder=" " required />
-                {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
-                <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                <input type="text" value={formData.lastname} onChange={handleChange} name="lastname" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-[#61366b] focus:outline-none focus:ring-0 focus:border-[#61366b] peer" placeholder=" " required />
+                {errors.lastname && <p className="text-red-500 text-xs mt-1">{errors.lastname}</p>}
+                <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Apellido</label>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" value={formData.n_phone} onChange={handleChange} name="n_phone" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-[#61366b] focus:outline-none focus:ring-0 focus:border-[#61366b] peer" placeholder=" " required />
+                {errors.n_phone && <p className="text-red-500 text-xs mt-1">{errors.n_phone}</p>}
+                <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Telefono</label>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" value={formData.identification} onChange={handleChange} name="identification" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-[#61366b] focus:outline-none focus:ring-0 focus:border-[#61366b] peer" placeholder=" " required />
+                {errors.identification && <p className="text-red-500 text-xs mt-1">{errors.identification}</p>}
+                <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Identificacion</label>
             </div>
             <button type="submit" class="text-white w-full bg-[#522b5b] hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
             

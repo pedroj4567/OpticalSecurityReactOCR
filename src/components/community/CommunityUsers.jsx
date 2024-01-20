@@ -53,13 +53,16 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
     setIsFormOpen(prev => !prev)
   }
 
-  const baseURL = "http://localhost:3200/api/v1/person"
+  // const baseURL = "http://localhost:3200/api/v1/person"
+  const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/person"
 
   const postMethod = async (body) => {
     try {
       setIsLoadingCreate(true)
       const { data } = await axios
-      .post(`${baseURL}`, body)
+      .post(`${baseURL}`, {
+        data: body
+      })
       console.log("hola", data)
       setResponseCreate(data)
     } catch (error) {
@@ -115,24 +118,12 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
      
     };
 
-  console.log(response)
-    const usersData = [
-      {
-       id: 1,
-       email: "valero@gmail.com",
-       password: "glhlhl"
-      },
-      {
-        id: 2,
-        email: "valero@gmail.com",
-        password: "glhlhl"
-       },
-       {
-        id: 3,
-        email: "valero@gmail.com",
-        password: "glhlhl"
-       },
-    ]
+    useEffect(() => {
+      console.log(responseCreate)
+    }, [responseCreate])
+
+  
+ 
   
     const { isLoading, completed, hasError, closeError, simulateRequest } = useSimulatedRequest();
   

@@ -54,7 +54,8 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
     setCurrentUserId(null)
     setIsFormOpen(prev => !prev)
   }
-  const baseURL = "http://localhost:3200/api/v1/family"
+  // const baseURL = "http://localhost:3200/api/v1/family"
+  const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/family"
 
   const postMethod = async (body) => {
     console.log(body)
@@ -145,30 +146,6 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
         console.log(response, error, loading)
 
     }, [response, error])
-
-    const usersData = [
-      {
-       id: 1,
-       name: "Jose",
-       n_address: "Terrazas del mar",
-       n_house: 10,
-       phone: "04265838730",
-      },
-      {
-        id: 2,
-        name: "Jose",
-        n_address: "Terrazas del mar",
-        n_house: 10,
-        phone: "04265838730",
-       },
-       {
-        id: 3,
-        name: "Jose",
-        n_address: "Terrazas del mar",
-        n_house: 10,
-        phone: "04265838730",
-       },
-    ]
   
     const { isLoading, completed, hasError, closeError, simulateRequest } = useSimulatedRequest();
   
