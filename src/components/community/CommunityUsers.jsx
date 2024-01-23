@@ -5,6 +5,7 @@ import Button from "../button/Button";
 import SpinnerDark from "../Spinner/SpinnerDark";
 import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import { UserCommunityForm } from "./UserCommunityForm";
+import axios from "axios";
 
 
 const CommunityUsers = ({fetchData, response, loading, error}) => {
@@ -53,15 +54,17 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
     setIsFormOpen(prev => !prev)
   }
 
-  // const baseURL = "http://localhost:3200/api/v1/person"
-  const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/person"
+  const baseURL = "http://localhost:3200/api/v1/person"
+  // const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/person"
 
   const postMethod = async (body) => {
+    console.log("executing")
+    console.log(body)
     try {
       setIsLoadingCreate(true)
       const { data } = await axios
       .post(`${baseURL}`, {
-        data: body
+        dataUser: body
       })
       console.log("hola", data)
       setResponseCreate(data)
@@ -94,7 +97,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
         const { data } = await axios
         .post(`${baseURL}/${id}`, body)
         console.log("hola", data)
-        setResponseUsetIsLoadingUpdate(data)
+        setResponseUpdate(data)
       } catch (error) {
         setErrorDelete(error)
       }finally{

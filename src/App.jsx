@@ -23,7 +23,7 @@ function App() {
   return (
     <>
         <BrowserRouter>
-            {/* <Routes >
+            <Routes >
                 <Route path='/' element={<AuthLayout/>}>
                     <Route index element={<LoginPage/>}/>
                     <Route path='verify' element={<SendEmailVerificationPage/>}/>
@@ -36,9 +36,9 @@ function App() {
                     <Route path='visits' element={<VisitsPage/>}/>
                     <Route path='community' element={<CommunityPage/>}/>
                 </Route>
-            </Routes> */}
+            </Routes>
             
-            <Routes>
+            {/* <Routes>
                 <Route path="/" element={<AuthLayout/>}>
                     <Route index element={<LoginPage/>}/>
                     <Route path="register" element={<Register/>}/>
@@ -79,7 +79,7 @@ function App() {
                     <Route path="visits" element={<VisitsPage />} />
                 </Route>
                 
-            </Routes>
+            </Routes> */}
         </BrowserRouter>
     </>
   )

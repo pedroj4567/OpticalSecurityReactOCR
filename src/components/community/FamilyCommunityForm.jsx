@@ -6,12 +6,14 @@ import { IoMdCloseCircle } from "react-icons/io";
 import useAxios from '../../utils/hooks/useAxios';
 import SpinnerTemporal2 from '../Spinner/SpinnerTemporal2';
 import Select from 'react-select'
+import toast, { Toaster } from 'react-hot-toast';
 import { FamilyCommunityFormStepTwo } from './FamilyCommunityFormStepTwo';
 
 export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create, users}) => {
 
+  const [selectedUserIds, setSelectedUserIds] = useState([]);
   const [cars, setCars] = useState([
-    { carName: '', brand: '', model: '', plate: '', color: '' },
+    // { uuid: uuidv4(), brand: '', model: '', plate: '', color: '' },
    
   ]);
   const [isVisible, setIsVisible] = useState(false);
@@ -26,10 +28,34 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     direccion: '',
     casa: '',
     telefono: '',
+    
   });
 
-  function toggleStepTwo(){
-    setIsStepTwoOpen(prev => !prev)
+  const usersData = users?.map((user) => {
+    return { value: user.uuid, label:user.name}
+  })
+
+  
+
+
+  function toggleStepTwo() {
+    const telefonoIsValid = /^\d{8,}$/.test(formData.telefono);
+    const usersIds = usersData.map((user) => (
+      user.value
+    ))
+  
+    if (
+      !formData.name ||
+      !formData.direccion ||
+      !formData.telefono ||
+      !formData.casa ||
+      selectedUserIds.length === 0 ||
+      !telefonoIsValid
+    ) {
+      toast.error("Llena todos los campos correctamente");
+    } else {
+      setIsStepTwoOpen((prev) => !prev);
+    }
   }
 
   const handleChange = (e) => {
@@ -52,10 +78,17 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     }
   }, [])
 
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
 
     let currentErrors = {};
+  
+    const carsIds = cars.map((car) => (
+      car.uuid
+    ))
 
     if (!formData.name.trim()) {
       currentErrors.name = 'El email es requerido';
@@ -70,10 +103,34 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
       currentErrors.telefono = 'El telefono es requerido';
     }
 
-   
-  
+    console.log("selected user Ids:", selectedUserIds)
+    console.log("cars user Ids:", carsIds)
 
-    if (Object.keys(currentErrors).length === 0) {
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   selectedUserIds,
+    //   carsIds,
+    // }));
+
+    if(selectedUserIds){
+      toast.error("Por favor añade a una persona")
+    }
+
+    if(cars.length === 0){
+      toast.error("Por favor añade un vehículo")
+    }
+
+    const isAnyEmpty = cars.some(car => Object.values(car).some(value => value === ''));
+
+    if (isAnyEmpty) {
+      console.log("fix")
+      toast.error("Por favor llena todo los campos de carro")
+    }
+
+    console.log(formData)
+    console.log(selectedUserIds)
+
+    if (Object.keys(currentErrors).length === 0 && cars.length > 0 && !isAnyEmpty && selectedUserIds.length > 0) {
       // Handle form submission logic here (e.g., send data to backend)
       console.log('Form data:', formData);
       create(formData)
@@ -125,9 +182,6 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     }
   };
 
-  const usersData = users?.map((user) => {
-    return { value: user.uuid, label:user.name}
-  })
 
   useEffect(() => {
     console.log("user options", usersData)
@@ -139,9 +193,19 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     
  <div className="fixed z-20 top-0 left-0 w-full h-full flex items-center justify-center">
     <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
-    {isStepTwoOpen && <FamilyCommunityFormStepTwo handleEditSubmit={handleEditSubmit} handleSubmit={handleSubmit} cars={cars} setCars={setCars} id={id} isLoading={isLoading} isVisible={isVisible} />}
-        <form 
-         onSubmit={toggleStepTwo}
+    <Toaster
+        position="top-right"
+        toastOptions={{
+          // Define default options
+          className: '',
+          duration: 1300,
+          style: {
+            background: '#522b5b',
+            color: '#fff',
+          }}}
+      />
+    {isStepTwoOpen && <FamilyCommunityFormStepTwo setFormData={setFormData} handleEditSubmit={handleEditSubmit} handleSubmit={handleSubmit} cars={cars} setCars={setCars} id={id} isLoading={isLoading} isVisible={isVisible} />}
+        <div 
         // onSubmit={id ? handleEditSubmit : handleSubmit}
            className={`shadow-lg h-5/6 relative bg-white w-3/4 items-center py-12 px-6 border rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
         >
@@ -185,13 +249,20 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
               options={usersData}
               className="basic-multi-select w-full"
               classNamePrefix="select"
+              onChange={(selectedOptions) => {
+                const selectedIds = selectedOptions.map((option) => option.value);
+                setSelectedUserIds(selectedIds);
+                setFormData((prev) => ({
+                  ...prev,
+                  selectedIds,
+                }));
+              }}
             />
             <button onClick={toggleStepTwo} class="text-white  bg-[#522b5b] hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
               </>
             }
-        </form>
-      
-        
+        </div>
+
     </div>
     </>
   )

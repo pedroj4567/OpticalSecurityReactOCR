@@ -2,14 +2,17 @@ import React, { useState } from 'react'
 import SpinnerTemporal2 from '../Spinner/SpinnerTemporal2'
 import { IoMdCloseCircle } from 'react-icons/io'
 import List from 'rc-virtual-list';
+import { v4 as uuidv4 } from 'uuid';
+import { Toaster } from 'react-hot-toast';
 
 
-export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, toggleForm, id, isLoading, isVisible, cars, setCars}) => {
+export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handleSubmit, toggleForm, id, isLoading, isVisible, cars, setCars}) => {
 
   
     
       const handleAddCar = () => {
-        setCars([...cars,  { carName: '', brand: '', model: '', plate: '', color: '' },]);
+        setCars([...cars,  { brand: '', model: '', licencePlate: '', color: '' },]);
+       
       };
     
       const handleInputChange = (index, field, value) => {
@@ -17,6 +20,11 @@ export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, togg
         newCars[index][field] = value;
         setCars(newCars);
         console.log(cars)
+        
+        setFormData((prev) => ({
+          ...prev,
+          cars,
+        }));
       };
     
       const handleDeleteCar = (index) => {
@@ -35,6 +43,17 @@ export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, togg
       <div
         className={`shadow-lg h-5/6 relative bg-white border w-3/4 items-center py-12 px-6 rounded-md flex flex-col justify-evenly `}
       >
+        <Toaster
+        position="top-right"
+        toastOptions={{
+          // Define default options
+          className: '',
+          duration: 1300,
+          style: {
+            background: '#522b5b',
+            color: '#fff',
+          }}}
+      />
         <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
         <div className="text-center mb-2 text-2xl">
           {id ? (
@@ -60,9 +79,7 @@ export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, togg
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-slate-100 uppercase  bg-[#522b5b]">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Nombre
-                </th>
+               
                 <th scope="col" class="px-6 py-3">
                     Marca
                 </th>
@@ -83,16 +100,6 @@ export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, togg
         <tbody>
         {cars.map((car, index) => (
                 <tr class="bg-white border-b text-gray-700 dark:border-purple-600">
-            
-                        <td className="w-[100px] border py-2 px-3">
-             <input
-                type="text"
-                placeholder="Car Name"
-                value={car.carName}
-                onChange={(event) => handleInputChange(index, 'carName', event.target.value)}
-                className="w-full border rounded py-1 px-2"
-              />
-            </td>
             <td className="w-[100px] border py-2 px-3">
               <input
                 type="text"
@@ -115,8 +122,8 @@ export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, togg
               <input
                 type="text"
                 placeholder="Placa"
-                value={car.plate}
-                onChange={(event) => handleInputChange(index, 'plate', event.target.value)}
+                value={car.licencePlate}
+                onChange={(event) => handleInputChange(index, 'licencePlate', event.target.value)}
                 className="w-full border rounded py-1 px-2"
               />
             </td>
@@ -145,7 +152,7 @@ export const FamilyCommunityFormStepTwo = ({handleEditSubmit, handleSubmit, togg
         </tbody>
     </table>
 </div>
-<button  class="text-white w-full bg-[#522b5b] my-2 hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
+<button onClick={handleSubmit} class="text-white  bg-[#522b5b] my-2 hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
 </div>
 
         )}

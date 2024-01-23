@@ -31,6 +31,8 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create}) 
     }, []);
   const [errors, setErrors] = useState({});
 
+  
+
   useEffect(() => {
     if(id){
         console.log("Buscar por id", id)

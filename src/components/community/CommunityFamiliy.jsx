@@ -5,12 +5,15 @@ import Button from "../button/Button";
 import SpinnerDark from "../Spinner/SpinnerDark";
 import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import { FamilyCommunityForm } from "./FamilyCommunityForm";
-import axios, { Axios } from "axios";
 import { FamilyCommunityFormStepTwo } from "./FamilyCommunityFormStepTwo";
+import axios from "axios";
 
 
 
 const CommunityFamily = ({fetchData, response, loading, error}) => {
+
+  const [users, setUsers] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [isDeleteOpen, setIsDeleteOpen] = useState(false)
     const [currentUserId, setCurrentUserId] = useState(null)
@@ -35,9 +38,9 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
       fetchData()
     }, []);
 
-  function toggleForm() {
-    setIsFormOpen(prev => !prev)
-  }
+  // function toggleForm() {
+  //   setIsFormOpen(prev => !prev)
+  // }
   function closeDeleteModal(){
     setIsDeleteOpen(prev => !prev)
     setCurrentUserId(null)
@@ -54,8 +57,8 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
     setCurrentUserId(null)
     setIsFormOpen(prev => !prev)
   }
-  // const baseURL = "http://localhost:3200/api/v1/family"
-  const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/family"
+  const baseURL = "http://localhost:3200/api/v1/family"
+  // const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/family"
 
   const postMethod = async (body) => {
     console.log(body)
@@ -67,7 +70,10 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
           name: body.name,
           n_address: body.direccion,
           n_house: body.casa,
-          phone: body.telefono
+          phone: body.telefono,
+          personIds: body.selectedIds,
+          cars: body.cars
+
         }
        
       })
@@ -147,18 +153,32 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
 
     }, [response, error])
   
-    const { isLoading, completed, hasError, closeError, simulateRequest } = useSimulatedRequest();
+    const fetchDataUsers = async () => {
+      try {
+       
+        const request = await fetch("http://localhost:3200/api/v1/person",{})
+        const data = await request.json();
   
-    useEffect(() => {
-      simulateRequest()
-    }, [])
+        return data;
+      } catch (error) {
+        console.log(error)
+      }
+     
+    };
+  
+    async function toggleForm() {
+        setIsFormOpen(prev => !prev);
+        setCurrentUserId(null)
+        const { people } = await fetchDataUsers();
+        setUsers([...people])
+      }
   
     return (
       <section className="w-[100%] mt-10 flex flex-col">
       
         {isDeleteOpen && <ErrorMessage msg={"¿Estás seguro que quieres eliminar?"} btnMsg={"Eliminar"} close={closeDeleteModal} action={deleteMethod} id={currentUserId}/>}
-        {isFormOpen && <FamilyCommunityForm setId={setCurrentUserId} id={currentUserId} toggleForm={closeEditForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
-          <button onClick={toggleForm} className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
+        {isFormOpen && <FamilyCommunityForm users={users} setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
+          <button onClick={toggleForm}  className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
               Create
               <FaPlusCircle className="w-4 h-4 ml-2" />
           </button>
