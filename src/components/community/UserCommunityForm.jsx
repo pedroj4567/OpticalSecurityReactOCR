@@ -3,12 +3,22 @@ import Button from '../button/Button'
 import InputField from '../input/InputField'
 import { v4 as uuidv4 } from 'uuid';
 import { IoMdCloseCircle } from 'react-icons/io';
+import useAxios from '../../utils/hooks/useAxios';
 
 
 export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create}) => {
 
   const [isVisible, setIsVisible] = useState(false);
+  const { response: usersResponse, loading: usersLoading, error: usersError, fetchData: fetchUsersData } = useAxios({
+    method: 'get',
+    url: `person/${id}`,
+  });
 
+  useEffect(() => {
+    if(id){
+      fetchUsersData()
+    }
+  }, [id])
   
   const [formData, setFormData] = useState({
     name: '',
@@ -34,10 +44,11 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create}) 
   
 
   useEffect(() => {
-    if(id){
-        console.log("Buscar por id", id)
+    console.log(usersResponse)
+    if(usersResponse){
+      setFormData(usersResponse?.person)
     }
-  }, [])
+   }, [usersResponse])
 
   const handleSubmit = (e) => {
     e.preventDefault();

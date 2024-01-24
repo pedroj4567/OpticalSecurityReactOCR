@@ -19,8 +19,8 @@ const StartPage = () => {
   const [error, setError] = useState()
   const [screenShot, setScreenShot] = useState(null)
   const [screenShotIsLoading, setScreenShotIsLoading] = useState(false)
-  const { getSessionInfo } = useSession();
-  const { userName } = getSessionInfo();
+  // const { getSessionInfo } = useSession();
+  // const { userName } = getSessionInfo();
   // const baseURL = "http://localhost:3200/api/v1/recognition/upload"
   const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/recognition/upload"
   
@@ -73,7 +73,7 @@ const StartPage = () => {
        <>
          <div className=" w-full h-[44px] flex justify-between px-4 items-center">
                <div>
-                   <h1 className="text-[32px] text-[#522b5b] font-medium ">Bienvenido {userName === undefined ? "Usuario" : userName}</h1>
+                   {/* <h1 className="text-[32px] text-[#522b5b] font-medium ">Bienvenido {userName === undefined ? "Usuario" : userName}</h1> */}
                </div>
                <div>
                    <p className="text-xl text-[#522b5b]" >Fecha : <span className="font-bold">{getFormattedDate()}</span>  Hora: <Clock/></p>

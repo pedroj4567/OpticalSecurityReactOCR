@@ -9,7 +9,7 @@ export default {
   ],
   theme: {},
   plugins: [
-  
+    require('flowbite/plugin'),
   ],
 }
 

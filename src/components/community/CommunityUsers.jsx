@@ -33,7 +33,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
 
   useEffect(() => {
     fetchData()
-  }, []);
+  }, [responseCreate, responseDelete, responsePatch, responseUpdate]);
   useEffect(() => {
     console.log(response)
   }, [response]);
@@ -80,7 +80,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
       try {
         setIsLoadingDelete(true)
         const { data } = await axios
-        .post(`${baseURL}/${id}`)
+        .delete(`${baseURL}/${id}`)
         console.log("hola", data)
         setResponseDelete(data)
       } catch (error) {
@@ -128,11 +128,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
   
  
   
-    const { isLoading, completed, hasError, closeError, simulateRequest } = useSimulatedRequest();
-  
-    useEffect(() => {
-      simulateRequest()
-    }, [])
+
   
     return (
       <section className="w-[100%] mt-10 flex flex-col">
@@ -171,7 +167,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                 </thead>
                
                   {
-                    isLoading ? 
+                    loading ? 
                     <div class="px-6 py-20 w-full  flex justify-center items-center">
                                     <SpinnerDark />  
                     </div>
@@ -198,11 +194,11 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                                         {user.isFamily}
                                     </td>
                                     <td class="px-6 py-4 flex items-center gap-3">
-                                    <button onClick={() => openEditForm(user.id)} className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
+                                    <button onClick={() => openEditForm(user.uuid)} className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
                                         <FaEdit className="w-4 h-4 mr-2" />
                                           Edit
                                       </button>
-                                      <button onClick={() => openDeleteModal(user.id)} className="font-medium p-1 rounded bg-red-600 text-white  hover:bg-red-400 flex items-center">
+                                      <button onClick={() => openDeleteModal(user.uuid)} className="font-medium p-1 rounded bg-red-600 text-white  hover:bg-red-400 flex items-center">
                                           <FaTrashAlt className="w-4 h-4 mr-2 " />
                                           Delete
                                       </button>

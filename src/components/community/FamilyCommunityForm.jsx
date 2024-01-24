@@ -18,11 +18,16 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
   ]);
   const [isVisible, setIsVisible] = useState(false);
   const [isStepTwoOpen, setIsStepTwoOpen] = useState(false)
-  const {isLoading, response, error, fetchData} = useAxios({
+  const { response: familyResponse, loading: familyLoading, error: familyError, fetchData: fetchFamilyData } = useAxios({
     method: 'get',
     url: `family/${id}`,
-  })
-  
+  });
+
+  useEffect(() => {
+    if(id){
+      fetchFamilyData()
+    }
+  }, [id])
   const [formData, setFormData] = useState({
     name: '',
     direccion: '',
@@ -72,13 +77,13 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     }, []);
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    if(id){
-        fetchData()
-    }
-  }, [])
 
-  
+  useEffect(() => {
+    console.log(usersResponse)
+    if(usersResponse){
+      setFormData(usersResponse?.person)
+    }
+   }, [familyResponse])
 
   const handleSubmit = (e) => {
     e.preventDefault();
