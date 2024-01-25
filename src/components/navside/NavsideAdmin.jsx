@@ -2,11 +2,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useSession from "../../utils/hooks/useSession";
 import ButtonNavSide from "../button/ButtonNavside";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowUp } from "react-icons/md";
+
+
 
 const NavsideAdmin = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const navigate = useNavigate();
   const { cleanStorage } = useSession();
+  const [isCommunityOpen, setIsCommunityOpen] = useState(false)
+
+  const toggleCommunity = () => {
+    setIsCommunityOpen(prev => !prev)
+  }
   
   const hiddenLetters = () => {
     const links = document.querySelectorAll("a");
@@ -31,10 +40,10 @@ const NavsideAdmin = () => {
       title: "Visita",
       link: "/Admin/visits",
     },
-    {
-      title: "Comunidad",
-      link: "/Admin/community",
-    }
+    // {
+    //   title: "Comunidad",
+    //   link: "/Admin/community",
+    // }
   ]
   const handlerSession = () =>{
     cleanStorage();
@@ -70,6 +79,35 @@ const NavsideAdmin = () => {
                 <span className="text">{link.title}</span>
               </Link>
               ))
+            }
+            <li onClick={toggleCommunity} className="hover:bg-[#FFFFFF]/75 rounded-md  hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 ">
+              <div className="w-full flex items-center justify-between mr-4">
+                <span className="text">Comunidades</span>
+                {
+                  isCommunityOpen ?
+                  <MdKeyboardArrowUp />:
+                  <MdKeyboardArrowDown />
+                }
+                
+              </div>
+            </li>
+            {isCommunityOpen && 
+            <>
+              <Link
+                to={""}
+                className=" hover:bg-[#FFFFFF]/75 rounded-md bg-[#46234e] hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
+                >
+                {""}
+                <span className="text">Personas</span>
+              </Link>
+              <Link
+                to={""}
+                className=" hover:bg-[#FFFFFF]/75 rounded-md bg-[#46234e] hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
+                >
+                {""}
+                <span className="text">Familias</span>
+              </Link>
+            </>
             }
             {/* <Link
               to="/officer"
