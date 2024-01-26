@@ -147,14 +147,11 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
 
             </tr>
         )) }
-            
-           
         </tbody>
     </table>
 </div>
 <button onClick={handleSubmit} class="text-white  bg-[#522b5b] my-2 hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
 </div>
-
         )}
       </div>
     </div>

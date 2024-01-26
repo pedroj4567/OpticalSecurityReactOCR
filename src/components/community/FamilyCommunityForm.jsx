@@ -16,6 +16,15 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     // { uuid: uuidv4(), brand: '', model: '', plate: '', color: '' },
    
   ]);
+  const [formData, setFormData] = useState({
+    name: '',
+    direccion: '',
+    casa: '',
+    telefono: '',
+    cars: [],
+    personIds: []
+    
+  });
   const [isVisible, setIsVisible] = useState(false);
   const [isStepTwoOpen, setIsStepTwoOpen] = useState(false)
   const { response: familyResponse, loading: familyLoading, error: familyError, fetchData: fetchFamilyData } = useAxios({
@@ -25,18 +34,32 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
 
   useEffect(() => {
     if(id){
+      console.log("id",id)
       fetchFamilyData()
     }
   }, [id])
-  const [formData, setFormData] = useState({
-    name: '',
-    direccion: '',
-    casa: '',
-    telefono: '',
-    
-  });
 
-  const usersData = users?.map((user) => {
+  useEffect(() => {
+    if(familyResponse){
+   
+      console.log(familyResponse.family)
+    
+      formData.name = familyResponse.family.name
+      formData.direccion = familyResponse.family.n_address
+      formData.casa = familyResponse.family.n_house
+      formData.telefono = familyResponse.family.phone
+      formData.cars = familyResponse.family.Cars
+      // formData.personIds = familyResponse.family.People
+      
+      console.log(formData.cars)
+
+    }
+  }, [familyResponse])
+
+
+ 
+
+  const usersData = users.map((user) => {
     return { value: user.uuid, label:user.name}
   })
 
@@ -79,9 +102,9 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
 
 
   useEffect(() => {
-    console.log(usersResponse)
-    if(usersResponse){
-      setFormData(usersResponse?.person)
+    console.log(familyResponse)
+    if(familyResponse){
+      setFormData(familyResponse)
     }
    }, [familyResponse])
 
@@ -193,6 +216,10 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     console.log("users", users)
   }, [users, usersData])
 
+  useEffect(() => {
+    console.log("loading", familyLoading)
+  }, [familyLoading])
+
   return (
     <>
     
@@ -209,9 +236,8 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
             color: '#fff',
           }}}
       />
-    {isStepTwoOpen && <FamilyCommunityFormStepTwo setFormData={setFormData} handleEditSubmit={handleEditSubmit} handleSubmit={handleSubmit} cars={cars} setCars={setCars} id={id} isLoading={isLoading} isVisible={isVisible} />}
+    {isStepTwoOpen && <FamilyCommunityFormStepTwo setFormData={setFormData} handleEditSubmit={handleEditSubmit} handleSubmit={handleSubmit} cars={cars} setCars={setCars} id={id} isLoading={familyLoading} isVisible={isVisible} />}
         <div 
-        // onSubmit={id ? handleEditSubmit : handleSubmit}
            className={`shadow-lg h-5/6 relative bg-white w-3/4 items-center py-12 px-6 border rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
         >
           <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
@@ -223,7 +249,7 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
                 <hr />
             </div>
             
-            {isLoading ?
+            {familyLoading ?
             <SpinnerTemporal2 />
               :
               <>

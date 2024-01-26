@@ -12,10 +12,8 @@ const ErrorMessage = ({ msg, close, action, btnMsg, isCompleted, id }) => {
     }, []);
 
     function nextActionErrorMsg() {
-        
-            console.log("ejecutando")
             action(id);
-       
+            close()
     }
 
     return (

@@ -31,6 +31,13 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
   const [responsePatch, setResponsePatch] = useState()
   const [errorPatch, setErrorPatch] = useState()
 
+  const [formData, setFormData] = useState({
+    name: '',
+    lastname: '',
+    n_phone: 0,
+    identification: ""
+  });
+
   useEffect(() => {
     fetchData()
   }, [responseCreate, responseDelete, responsePatch, responseUpdate]);
@@ -40,6 +47,8 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
 
   function toggleForm() {
     setIsFormOpen(prev => !prev)
+    setCurrentUserId(null)
+    setFormData([])
   }
   function closeDeleteModal(){
     setIsDeleteOpen(prev => !prev)
@@ -110,7 +119,9 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
       try {
         setIsLoadingPatch(true)
         const { data } = await axios
-        .post(`${baseURL}/${id}`, body)
+        .patch(`${baseURL}/${id}`, {
+          newData: body
+        })
         console.log("hola", data)
         setResponsePatch(data)
       } catch (error) {
@@ -132,7 +143,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
   
     return (
       <section className="w-[100%] mt-10 flex flex-col">
-        {isFormOpen && <UserCommunityForm setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
+        {isFormOpen && <UserCommunityForm formData={formData} setFormData={setFormData} setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
         {isDeleteOpen && <ErrorMessage msg={"¿Estás seguro que quieres eliminar?"} btnMsg={"Eliminar"} close={closeDeleteModal} action={deleteMethod} id={currentUserId}/>}
 
         {/* <h1 className="py-5 text-3xl font-bold">Visitas</h1> */}
@@ -158,14 +169,10 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                             cedula
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Asignado a familia
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Acciones
                         </th>
                     </tr>
                 </thead>
-               
                   {
                     loading ? 
                     <div class="px-6 py-20 w-full  flex justify-center items-center">
@@ -182,7 +189,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                                         {user.id}
                                     </th>
                                     <td class="px-6 py-4">
-                                        `${user.name} ${user.lastname}`
+                                    {user.name} {user.lastname}
                                     </td>
                                     <td class="px-6 py-4">
                                         {user.n_phone}
@@ -190,9 +197,7 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                                     <td class="px-6 py-4">
                                         {user.identification}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        {user.isFamily}
-                                    </td>
+                                    
                                     <td class="px-6 py-4 flex items-center gap-3">
                                     <button onClick={() => openEditForm(user.uuid)} className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
                                         <FaEdit className="w-4 h-4 mr-2" />
@@ -205,16 +210,11 @@ const CommunityUsers = ({fetchData, response, loading, error}) => {
                                     </td>
                                     </tr>
                                 </>
-                                )
-                              })
+                              )
+                           })
                         }
                     </tbody>
-                    
-                 
-                    
-                  }
-                 
-                    
+                  }  
             </table>
         </div>
       </section>

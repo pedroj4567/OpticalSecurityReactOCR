@@ -73,9 +73,7 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
           phone: body.telefono,
           personIds: body.selectedIds,
           cars: body.cars
-
         }
-       
       })
       console.log("hola", data)
       setResponseCreate(data)
@@ -111,7 +109,9 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
             name: body.name,
             n_address: body.direccion,
             n_house: body.casa,
-            phone: body.telefono
+            phone: body.telefono,
+            personIds: body.selectedIds,
+            cars: body.cars
           }
          
         })
@@ -134,7 +134,9 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
             name: body.name,
             n_address: body.direccion,
             n_house: body.casa,
-            phone: body.telefono
+            phone: body.telefono,
+            personIds: body.selectedIds,
+            cars: body.cars
           }
          
         })

@@ -6,7 +6,7 @@ import { IoMdCloseCircle } from 'react-icons/io';
 import useAxios from '../../utils/hooks/useAxios';
 
 
-export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create}) => {
+export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, formData, setFormData}) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const { response: usersResponse, loading: usersLoading, error: usersError, fetchData: fetchUsersData } = useAxios({
@@ -20,12 +20,7 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create}) 
     }
   }, [id])
   
-  const [formData, setFormData] = useState({
-    name: '',
-    lastname: '',
-    n_phone: 0,
-    identification: ""
-  });
+ 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +41,13 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create}) 
   useEffect(() => {
     console.log(usersResponse)
     if(usersResponse){
-      setFormData(usersResponse?.person)
+      setFormData((prev) => ({
+        name: usersResponse?.person.name,
+        lastname: usersResponse?.person.lastname,
+        n_phone: usersResponse?.person.n_phone,
+        identification: usersResponse?.person.identification
+      })
+      )
     }
    }, [usersResponse])
 
@@ -76,7 +77,12 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create}) 
     if (Object.keys(currentErrors).length === 0) {
       // Handle form submission logic here (e.g., send data to backend)
       console.log('Form data:', formData);
-      create(formData)
+      if(id){
+        patch(id, formData)
+      }else{
+        create(formData)
+      }
+      
       setFormData({
         name: '',
         lastname: '',
@@ -89,46 +95,14 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create}) 
     }
   };
 
-  const handleEditSubmit = (e) => {
-    e.preventDefault();
-
-    let currentErrors = {};
-
-    if (!formData.email.trim()) {
-      currentErrors.email = 'El email es requerido';
-    }
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
-    if (!formData.password.trim()) {
-      currentErrors.password = 'Password is required';
-    } else if (!passwordRegex.test(formData.password)) {
-      currentErrors.password = 'La contraseña debe contener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números';
-    }
-  
-
-    if (Object.keys(currentErrors).length === 0) {
-      // Handle form submission logic here (e.g., send data to backend)
-      console.log('Form data:', formData);
-      setFormData({
-        email: '',
-        password: '',
-      })
-      toggleForm()
-      setId(null)
-
-
-    } else {
-      setErrors(currentErrors);
-    }
-  };
+ 
 
   return (
     <>
  <div className="fixed z-20 top-0 left-0 w-full h-full flex items-center justify-center">
-    <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
-       
+    <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>    
         <form 
-        onSubmit={id ? handleEditSubmit : handleSubmit}
+        onSubmit={handleSubmit}
            className={`shadow-lg h-1/2 relative bg-white items-center py-12 px-6 border  rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
         >
                     <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>

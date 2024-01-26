@@ -16,6 +16,8 @@ import { PrivateRoute } from './utils/PrivateRoute';
 import RequireAuth from './utils/RequiredAuth';
 import Register from './components/register/Register';
 import AdminLayout from './layouts/AdminLayout.jsx/AdminLayout';
+import { PeoplePage } from './pages/communityPage/people/PeoplePage';
+import { FamilyPage } from './pages/communityPage/family/FamilyPage';
 
 
 function App() {
@@ -34,7 +36,8 @@ function App() {
                     <Route index element={<StartPage/>}/>
                     <Route path='scan' element={<ScanPlatePage/>}/>
                     <Route path='visits' element={<VisitsPage/>}/>
-                    <Route path='community' element={<CommunityPage/>}/>
+                    <Route path='community/people' element={<PeoplePage/>}/>
+                    <Route path='community/family' element={<FamilyPage/>}/>
                 </Route>
             </Routes>
             

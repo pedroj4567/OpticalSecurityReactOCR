@@ -67,12 +67,12 @@ const TableVisits = () => {
       <section className="w-[90%] mx-auto mt-10 flex flex-col">
         {/* <h1 className="py-5 text-3xl font-bold">Visitas</h1> */}
           {/* {hasError && <ErrorMessage msg={`Error message`} btnMsg="Agregar cómo visita" close={closeError}/>} */}
-          {isFormOpen && <AddVisitForm toggleForm={toggleForm} families={families}  plate={plate} id={currentUserId} />}
+          {/* {isFormOpen && <AddVisitForm toggleForm={toggleForm} families={families}  plate={plate} id={currentUserId} />}
 
           <button onClick={toggleForm} className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
               Create
               <FaPlusCircle className="w-4 h-4 ml-2" />
-          </button>
+          </button> */}
 
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg border-purple-600">
             <table class="w-full text-sm text-left rtl:text-right border-[#522b5b] text-white ">
