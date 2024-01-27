@@ -128,6 +128,7 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
     const patchMethod = async (id, body) => {
       try {
         setIsLoadingPatch(true)
+        console.log("body", body)
         const { data } = await axios
         .patch(`${baseURL}/${id}`, {
           newData: {

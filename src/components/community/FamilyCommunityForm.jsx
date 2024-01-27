@@ -34,6 +34,10 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     url: `family/${id}`,
   });
 
+  function toggleStepTwo(){
+    setIsStepTwoOpen(prev => !prev)
+  }
+
   useEffect(() => {
     if(id){
       console.log("id",id)
@@ -43,7 +47,7 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
 
   useEffect(() => {
     if(familyResponse){
-   
+      setSelectedUserIds(familyResponse.family.People)
       console.log(familyResponse.family)
       setFormData(() => ({
         name : familyResponse.family.name,
@@ -51,10 +55,10 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
         casa : familyResponse.family.n_house,
         telefono : familyResponse.family.phone,
         cars : familyResponse.family.Cars,
-        personIds : familyResponse.family.People
+     
       }))
       setCars(familyResponse.family.Cars)
-      setSelectedUserIds(familyResponse.family.People)
+      
 
       const usersData = users.map((user) => {
         return { value: user.uuid, label:user.name}
@@ -260,7 +264,7 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
             color: '#fff',
           }}}
       />
-    {isStepTwoOpen && <FamilyCommunityFormStepTwo setFormData={setFormData} handleEditSubmit={handleEditSubmit} handleSubmit={handleSubmit} cars={cars} setCars={setCars} id={id} isLoading={familyLoading} isVisible={isVisible} />}
+    {isStepTwoOpen && <FamilyCommunityFormStepTwo toggle={toggleStepTwo} setFormData={setFormData} handleEditSubmit={handleEditSubmit} handleSubmit={handleSubmit} cars={cars} setCars={setCars} id={id} isLoading={familyLoading} isVisible={isVisible} />}
         <div 
            className={`shadow-lg h-5/6 relative bg-white w-3/4 items-center py-12 px-6 border rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
         >
