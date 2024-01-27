@@ -98,7 +98,7 @@ const Login = () => {
 
     const passwordRegex = /^(?=.*\d).{8,}$/;
 
-    const isPasswordValid = passwordRegex.test(yourPassword);
+    const isPasswordValid = passwordRegex.test(formData.password);
 
     let currentErrors = {};
 
