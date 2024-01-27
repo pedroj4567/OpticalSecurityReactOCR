@@ -10,7 +10,7 @@ const useAxios = () => {
  const fetchData = async (endpoint,data) => {
     setLoading(true);
     try {
-      const response = await clientAxios.get(endpoint, data || {});
+      const response = await clientAxios.get(endpoint);
       setData(response.data);
     } catch (err) {
       setError(err);

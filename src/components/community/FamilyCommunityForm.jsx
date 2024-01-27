@@ -9,8 +9,10 @@ import Select from 'react-select'
 import toast, { Toaster } from 'react-hot-toast';
 import { FamilyCommunityFormStepTwo } from './FamilyCommunityFormStepTwo';
 
-export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create, users}) => {
+export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create, users, usersSelect}) => {
 
+  const [newPeople, setNewPeople] = useState([])
+  const [filteredUsers, setFilteredUsers] = useState([])
   const [selectedUserIds, setSelectedUserIds] = useState([]);
   const [cars, setCars] = useState([
     // { uuid: uuidv4(), brand: '', model: '', plate: '', color: '' },
@@ -52,13 +54,26 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
         personIds : familyResponse.family.People
       }))
       setCars(familyResponse.family.Cars)
+      setSelectedUserIds(familyResponse.family.People)
+
+      const usersData = users.map((user) => {
+        return { value: user.uuid, label:user.name}
+      })
+
+      const newPeopleData = familyResponse.family.People.map((user) => {
+        return { value: user.uuid, label:user.name}
+      })
+
+      const filteredUserData = usersData.filter((user) => {
+        return !familyResponse.family.People.includes(user.value);
+      });
+
+      console.log(newPeopleData)
+      setNewPeople(newPeopleData)
+      setFilteredUsers(filteredUserData)
+      console.log(filteredUsers)
+      console.log(users)
     
-      // formData.name = familyResponse.family.name
-      // formData.direccion = familyResponse.family.n_address
-      // formData.casa = familyResponse.family.n_house
-      // formData.telefono = familyResponse.family.phone
-      // formData.cars = familyResponse.family.Cars
-      // formData.personIds = familyResponse.family.People
 
     }
   }, [familyResponse])
@@ -69,6 +84,10 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
   const usersData = users.map((user) => {
     return { value: user.uuid, label:user.name}
   })
+
+// const filteredUserData = usersData.filter((user) => {
+//   return !familyResponse?.family?.People?.includes(user.value);
+// });
 
   
 
@@ -161,7 +180,12 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     if (Object.keys(currentErrors).length === 0 && cars.length > 0 && !isAnyEmpty && selectedUserIds.length > 0) {
       // Handle form submission logic here (e.g., send data to backend)
       console.log('Form data:', formData);
-      create(formData)
+      if(id && familyResponse){
+        patch(id, formData)
+      }else{
+        create(formData)
+      }
+      
       setFormData({
         name: '',
         direccion: '',
@@ -273,23 +297,45 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
                 {errors.telefono && <p className="text-red-500 text-xs mt-1">{errors.telefono}</p>}
                 <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Telefono</label>
             </div>
-            <Select
-              defaultValue={[]}
-              isMulti
-              name="users"
-              options={usersData}
-              className="basic-multi-select w-full"
-              classNamePrefix="select"
-              onChange={(selectedOptions) => {
-                const selectedIds = selectedOptions.map((option) => option.value);
-                setSelectedUserIds(selectedIds);
-                setFormData((prev) => ({
-                  ...prev,
-                  selectedIds,
-                }));
-              }}
-            />
-            <button onClick={toggleStepTwo} class="text-white  bg-[#522b5b] hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
+          {newPeople.length > 0 ?
+           <Select
+           key={JSON.stringify(newPeople)}
+           defaultValue={newPeople}
+           isMulti
+           name="users"
+           openMenuOnClick={() => usersSelect()}
+           options={familyResponse ? filteredUsers : usersData}
+           className="basic-multi-select w-full"
+           classNamePrefix="select"
+           onChange={(selectedOptions) => {
+             const selectedIds = selectedOptions.map((option) => option.value);
+             setSelectedUserIds(selectedIds);
+             setFormData((prev) => ({
+               ...prev,
+               selectedIds,
+             }));
+           }}
+         /> :
+          <Select
+          defaultValue={[]}
+          isMulti
+          name="users"
+          options={usersData}
+          className="basic-multi-select w-full"
+          classNamePrefix="select"
+          openMenuOnClick={usersSelect()}
+          onChange={(selectedOptions) => {
+            const selectedIds  = selectedOptions.map((option) => option.value);
+            setSelectedUserIds(selectedIds);
+            setFormData((prev) => ({
+              ...prev,
+              selectedIds,
+            }));
+          }}
+        />
+          }
+          
+            <button onClick={toggleStepTwo} class="text-white  bg-[#522b5b] hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Siguiente</button>
               </>
             }
         </div>

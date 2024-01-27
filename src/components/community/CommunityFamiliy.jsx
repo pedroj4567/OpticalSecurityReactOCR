@@ -130,7 +130,7 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
         setIsLoadingPatch(true)
         const { data } = await axios
         .patch(`${baseURL}/${id}`, {
-          data: {
+          newData: {
             name: body.name,
             n_address: body.direccion,
             n_house: body.casa,
@@ -167,6 +167,11 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
       }
      
     };
+
+    async function usersSelect() {
+      const { people } = await fetchDataUsers();
+        setUsers([...people])
+    }
   
     async function toggleForm() {
         setIsFormOpen(prev => !prev);
@@ -179,7 +184,7 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
       <section className="w-[100%] mt-10 flex flex-col">
       
         {isDeleteOpen && <ErrorMessage msg={"¿Estás seguro que quieres eliminar?"} btnMsg={"Eliminar"} close={closeDeleteModal} action={deleteMethod} id={currentUserId}/>}
-        {isFormOpen && <FamilyCommunityForm users={users} setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
+        {isFormOpen && <FamilyCommunityForm users={users} usersSelect={usersSelect} setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
           <button onClick={toggleForm}  className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
               Create
               <FaPlusCircle className="w-4 h-4 ml-2" />
