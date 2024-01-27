@@ -271,9 +271,9 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
           <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
             <div className="text-center mb-2 text-2xl">
                 {id ? 
-                <h2 className="mb-4 text-gray-700">Editar <span className="text-[#61366b] font-semibold">usuario</span></h2>
+                <h2 className="mb-4 text-gray-700">Editar <span className="text-[#61366b] font-semibold">familia</span></h2>
                 :
-                <h2 className="mb-4 text-gray-700">Añadir nuevo <span className="text-[#61366b] font-semibold">usuario</span></h2>}
+                <h2 className="mb-4 text-gray-700">Añadir nueva <span className="text-[#61366b] font-semibold">familia</span></h2>}
                 <hr />
             </div>
             
