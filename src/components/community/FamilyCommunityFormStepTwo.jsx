@@ -5,9 +5,11 @@ import List from 'rc-virtual-list';
 import { v4 as uuidv4 } from 'uuid';
 import { Toaster } from 'react-hot-toast';
 import useAxios from '../../utils/axios/useAxios';
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 
-export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handleSubmit, toggleForm, id, isLoading, isVisible, cars, setCars}) => {
+
+export const FamilyCommunityFormStepTwo = ({setFormData, toggle, handleEditSubmit, handleSubmit, toggleForm, id, isLoading, isVisible, cars, setCars}) => {
 
     const [plateIsValid, setPlateIsValid] = useState(false)
     const {createData, data, loading, error} = useAxios()
@@ -93,7 +95,8 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
             color: '#fff',
           }}}
       />
-        <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
+        <FaArrowAltCircleLeft size={40} onClick={toggle} color='#61366b' className='absolute top-4 left-4 cursor-pointer'/>
+        {/* <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/> */}
         <div className="text-center mb-2 text-2xl">
           {id ? (
             <h2 className="mb-4 text-gray-700">Editar <span className="text-[#61366b] font-semibold">Vehiculos</span></h2>
