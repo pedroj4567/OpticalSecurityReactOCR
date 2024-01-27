@@ -43,15 +43,22 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     if(familyResponse){
    
       console.log(familyResponse.family)
+      setFormData(() => ({
+        name : familyResponse.family.name,
+        direccion : familyResponse.family.n_address,
+        casa : familyResponse.family.n_house,
+        telefono : familyResponse.family.phone,
+        cars : familyResponse.family.Cars,
+        personIds : familyResponse.family.People
+      }))
+      setCars(familyResponse.family.Cars)
     
-      formData.name = familyResponse.family.name
-      formData.direccion = familyResponse.family.n_address
-      formData.casa = familyResponse.family.n_house
-      formData.telefono = familyResponse.family.phone
-      formData.cars = familyResponse.family.Cars
+      // formData.name = familyResponse.family.name
+      // formData.direccion = familyResponse.family.n_address
+      // formData.casa = familyResponse.family.n_house
+      // formData.telefono = familyResponse.family.phone
+      // formData.cars = familyResponse.family.Cars
       // formData.personIds = familyResponse.family.People
-      
-      console.log(formData.cars)
 
     }
   }, [familyResponse])
@@ -77,7 +84,7 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
       !formData.direccion ||
       !formData.telefono ||
       !formData.casa ||
-      selectedUserIds.length === 0 ||
+      // selectedUserIds.length === 0 ||
       !telefonoIsValid
     ) {
       toast.error("Llena todos los campos correctamente");
@@ -100,13 +107,6 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
     }, []);
   const [errors, setErrors] = useState({});
 
-
-  useEffect(() => {
-    console.log(familyResponse)
-    if(familyResponse){
-      setFormData(familyResponse)
-    }
-   }, [familyResponse])
 
   const handleSubmit = (e) => {
     e.preventDefault();

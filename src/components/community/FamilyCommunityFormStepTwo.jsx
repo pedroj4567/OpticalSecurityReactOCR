@@ -8,8 +8,6 @@ import { Toaster } from 'react-hot-toast';
 
 export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handleSubmit, toggleForm, id, isLoading, isVisible, cars, setCars}) => {
 
-  
-    
       const handleAddCar = () => {
         setCars([...cars,  { brand: '', model: '', licencePlate: '', color: '' },]);
        
@@ -68,10 +66,10 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
           <SpinnerTemporal2 />
         ) : (
 
-  <div className="container w-full h-[800px] flex flex-col mx-auto my-8 overflow-x-auto">
+  <div className="container w-full h-[800px] flex flex-col mx-auto my-8 overflow-x-auto relative">
      <button
       onClick={handleAddCar}
-      className="bg-green-500 mb-2 self-end text-white py-2 px-4 rounded"
+      className="bg-[#6d3978] mb-2 self-end text-white py-2 px-4 rounded"
     >
       Add Car
     </button>
@@ -150,7 +148,7 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
         </tbody>
     </table>
 </div>
-<button onClick={handleSubmit} class="text-white  bg-[#522b5b] my-2 hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
+{cars.length > 0 && <button onClick={handleSubmit} class="text-white  bg-[#522b5b] my-2 hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center left-0 bottom-0 absolute">Agregar</button>}
 </div>
         )}
       </div>
