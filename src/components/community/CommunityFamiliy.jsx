@@ -187,7 +187,7 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
         {isDeleteOpen && <ErrorMessage msg={"¿Estás seguro que quieres eliminar?"} btnMsg={"Eliminar"} close={closeDeleteModal} action={deleteMethod} id={currentUserId}/>}
         {isFormOpen && <FamilyCommunityForm users={users} usersSelect={usersSelect} setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
           <button onClick={toggleForm}  className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
-              Create
+              Crear
               <FaPlusCircle className="w-4 h-4 ml-2" />
           </button>
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg border-purple-600">
@@ -246,11 +246,11 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
                                     <td class="px-6 py-4 flex items-center gap-3">
                                       <button onClick={() => openEditForm(user.uuid)} className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
                                         <FaEdit className="w-4 h-4 mr-2" />
-                                          Edit
+                                          Editar
                                       </button>
                                       <button onClick={() => openDeleteModal(user.uuid)} className="font-medium p-1 rounded bg-red-600 text-white  hover:bg-red-400 flex items-center">
                                           <FaTrashAlt className="w-4 h-4 mr-2 " />
-                                          Delete
+                                          Borrar
                                       </button>
                                     </td>
                                     </tr>
