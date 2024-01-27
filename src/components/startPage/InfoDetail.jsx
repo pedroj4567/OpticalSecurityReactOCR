@@ -9,7 +9,7 @@ export const InfoDetail = ({data, isLoading}) => {
     console.log("data", data);
   }, [data])
 
-  const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/family"
+  const baseURL = "http://localhost:3200/api/v1/family"
 
 
   const [isFormOpen, setIsFormOpen] = useState(false)

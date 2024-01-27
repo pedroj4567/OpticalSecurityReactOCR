@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { FamilyComponent } from '../../../components/community/family/FamilyComponent'
 
 export const FamilyPage = () => {

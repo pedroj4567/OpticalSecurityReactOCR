@@ -21,8 +21,8 @@ const StartPage = () => {
   const [screenShotIsLoading, setScreenShotIsLoading] = useState(false)
   // const { getSessionInfo } = useSession();
   // const { userName } = getSessionInfo();
-  // const baseURL = "http://localhost:3200/api/v1/recognition/upload"
-  const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/recognition/upload"
+  const baseURL = "http://localhost:3200/api/v1/recognition/upload"
+  // const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/recognition/upload"
   
   const fetchData = async () => {
     try {

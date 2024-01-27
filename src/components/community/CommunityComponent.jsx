@@ -49,16 +49,7 @@ const { response: familyResponse, loading: familyLoading, error: familyError, fe
               fetchData={fetchUsersData}
             />
         </div>
-        <div className='flex flex-col flex-[2] '>
         
-         <CommunityFamily 
-            response={familyResponse}
-            loading={familyLoading}
-            error={familyError}
-            fetchData={fetchFamilyData}
-          />
-           
-        </div>
     </div>
   )
 }
