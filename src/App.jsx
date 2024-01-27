@@ -19,7 +19,6 @@ import AdminLayout from "./layouts/AdminLayout.jsx/AdminLayout";
 // import { PeoplePage } from "./pages/communityPage/people/PeoplePage";
 import { FamilyPage } from "./pages/communityPage/family/FamilyPage";
 
-
 function App() {
   return (
     <>

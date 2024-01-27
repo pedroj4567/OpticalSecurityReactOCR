@@ -1,6 +1,6 @@
 import { Navside } from '../../components/'
 import {Outlet} from 'react-router-dom'
-import SidebarComponent from '../../components/navside/Sidebar'
+// import SidebarComponent from '../../components/navside/Sidebar'
 import NavsideAdmin from '../../components/navside/NavsideAdmin'
 
 
@@ -10,7 +10,7 @@ const OfficerLayout = () => {
         
           {/* <Navside/> */}
           {/* <SidebarComponent/> */}
-          <NavsideAdmin />
+          <Navside />
           <Outlet/>
       
     </main>

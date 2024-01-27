@@ -31,14 +31,14 @@ const Navside = () => {
       title: "Visita",
       link: "/officer/visits",
     },
-    {
-      title: "Visita",
-      link: "/officer/visits",
-    },
-    {
-      title: "Comunidad",
-      link: "/officer/community",
-    }
+    // {
+    //   title: "Visita",
+    //   link: "/officer/visits",
+    // },
+    // {
+    //   title: "Comunidad",
+    //   link: "/officer/community",
+    // }
   ]
   const handlerSession = () =>{
     cleanStorage();

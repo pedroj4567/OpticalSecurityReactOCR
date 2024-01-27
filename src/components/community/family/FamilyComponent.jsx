@@ -9,7 +9,7 @@ export const FamilyComponent = () => {
       });
   return (
     <div className='flex w-full gap-4'>
-       
+     
         <div className='flex flex-col flex-1 '>
         
          <CommunityFamily 

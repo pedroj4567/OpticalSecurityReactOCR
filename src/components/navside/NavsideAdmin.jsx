@@ -37,7 +37,7 @@ const NavsideAdmin = () => {
       link: "/Admin",
     },
     {
-      title: "Visita",
+      title: "Visitas",
       link: "/Admin/visits",
     },
     // {
@@ -98,7 +98,7 @@ const NavsideAdmin = () => {
                 className=" hover:bg-[#FFFFFF]/75 rounded-md bg-[#46234e] hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
                 >
                 {""}
-                <span className="text">Personas</span>
+                <span className="text">Habitantes</span>
               </Link>
               <Link
                 to={"/Admin/family"}

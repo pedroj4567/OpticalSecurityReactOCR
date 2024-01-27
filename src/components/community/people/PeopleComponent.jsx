@@ -1,4 +1,4 @@
-import React from 'react'
+
 import CommunityUsers from '../CommunityUsers';
 import useAxios from '../../../utils/hooks/useAxios';
 
@@ -9,6 +9,7 @@ export const PeopleComponent = () => {
       });
   return (
     <div className='flex w-full gap-4'>
+      
         <div className='flex flex-col flex-1 '>
             <CommunityUsers
             response={usersResponse}

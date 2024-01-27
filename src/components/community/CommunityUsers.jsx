@@ -128,6 +128,9 @@ const CommunityUsers = ({ fetchData, response, loading, error }) => {
 
   return (
     <section className="w-[100%] mt-10 flex flex-col">
+      <div className="mt-5 font-semibold py-5 text-3xl text-[#522b5b]">
+        <h1>Gestor de habitantes</h1>
+      </div>
       {isFormOpen && (
         <UserCommunityForm
           formData={formData}

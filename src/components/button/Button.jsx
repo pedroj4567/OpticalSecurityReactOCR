@@ -3,7 +3,7 @@ import Spinner from "../Spinner/Spinner"
 const Button = ({loading, action}) => {
   
   // const [loading, setLoading] = useState(true);
-  console.log(loading)
+
 
   return (
     <div className="w-full  h-[50px] flex justify-center mt-5">
