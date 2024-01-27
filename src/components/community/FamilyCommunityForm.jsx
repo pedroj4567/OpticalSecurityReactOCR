@@ -107,7 +107,7 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
       !formData.direccion ||
       !formData.telefono ||
       !formData.casa ||
-      // selectedUserIds.length === 0 ||
+      selectedUserIds.length === 0 ||
       !telefonoIsValid
     ) {
       toast.error("Llena todos los campos correctamente");
