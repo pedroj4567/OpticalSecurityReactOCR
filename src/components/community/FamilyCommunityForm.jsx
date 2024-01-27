@@ -11,6 +11,8 @@ import { FamilyCommunityFormStepTwo } from './FamilyCommunityFormStepTwo';
 
 export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create, users}) => {
 
+  const [newPeople, setNewPeople] = useState([])
+  const [filteredUsers, setFilteredUsers] = useState([])
   const [selectedUserIds, setSelectedUserIds] = useState([]);
   const [cars, setCars] = useState([
     // { uuid: uuidv4(), brand: '', model: '', plate: '', color: '' },
@@ -52,7 +54,25 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
         personIds : familyResponse.family.People
       }))
       setCars(familyResponse.family.Cars)
-    
+      setSelectedUserIds(familyResponse.family.People)
+
+      const usersData = users.map((user) => {
+        return { value: user.uuid, label:user.name}
+      })
+
+      const newPeopleData = familyResponse.family.People.map((user) => {
+        return { value: user.uuid, label:user.name}
+      })
+
+      const filteredUserData = usersData.filter((user) => {
+        return !familyResponse.family.People.includes(user.value);
+      });
+
+      console.log(newPeopleData)
+      setNewPeople(newPeopleData)
+      setFilteredUsers(filteredUserData)
+      console.log(filteredUsers)
+      console.log(users)
       // formData.name = familyResponse.family.name
       // formData.direccion = familyResponse.family.n_address
       // formData.casa = familyResponse.family.n_house
@@ -69,6 +89,10 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
   const usersData = users.map((user) => {
     return { value: user.uuid, label:user.name}
   })
+
+// const filteredUserData = usersData.filter((user) => {
+//   return !familyResponse?.family?.People?.includes(user.value);
+// });
 
   
 
@@ -274,10 +298,10 @@ export const FamilyCommunityForm = ({id, setId, toggleForm, edit, patch, create,
                 <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Telefono</label>
             </div>
             <Select
-              defaultValue={[]}
+              defaultValue={familyResponse && newPeople ? newPeople : []}
               isMulti
               name="users"
-              options={usersData}
+              options={familyResponse ? filteredUsers : usersData}
               className="basic-multi-select w-full"
               classNamePrefix="select"
               onChange={(selectedOptions) => {

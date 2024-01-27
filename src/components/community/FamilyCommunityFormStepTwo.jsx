@@ -1,12 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SpinnerTemporal2 from '../Spinner/SpinnerTemporal2'
 import { IoMdCloseCircle } from 'react-icons/io'
 import List from 'rc-virtual-list';
 import { v4 as uuidv4 } from 'uuid';
 import { Toaster } from 'react-hot-toast';
+import useAxios from '../../utils/axios/useAxios';
 
 
 export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handleSubmit, toggleForm, id, isLoading, isVisible, cars, setCars}) => {
+
+    const [plateIsValid, setPlateIsValid] = useState(false)
+    const {createData, data, loading, error} = useAxios()
+
+    const [formIsValid, setFormIsValid] = useState(false);
+
+  useEffect(() => {
+    const isValid = cars.every(car => validateLicensePlate(car.licencePlate));
+    setFormIsValid(isValid);
+  }, [cars]);
+
+    useEffect(() => {
+      console.log("data", data)
+      console.log("error", error)
+      console.log("loading", loading)
+
+    }, [data, loading, error])
+
+    const validateLicensePlate = (value) => {
+      // Add your validation logic here
+      const isValid = value.length >= 5 && value.length <= 8;
+      setPlateIsValid(isValid)
+      return isValid;
+    };
+
+    
 
       const handleAddCar = () => {
         setCars([...cars,  { brand: '', model: '', licencePlate: '', color: '' },]);
@@ -16,6 +43,20 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
       const handleInputChange = (index, field, value) => {
         const newCars = [...cars];
         newCars[index][field] = value;
+
+        validateLicensePlate(value)
+
+        if (field === 'licencePlate' && index === newCars.length - 1) {
+          const data =   {
+            plate: value
+          }
+          // Make the API call with the new licensePlate value
+          createData(
+          "", {
+            plate: value?.toUpperCase()
+          }
+          );
+        }
         setCars(newCars);
         console.log(cars)
         
@@ -77,7 +118,6 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-slate-100 uppercase  bg-[#522b5b]">
             <tr>
-               
                 <th scope="col" class="px-6 py-3">
                     Marca
                 </th>
@@ -105,6 +145,7 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
                 value={car.brand}
                 onChange={(event) => handleInputChange(index, 'brand', event.target.value)}
                 className="w-full border rounded py-1 px-2"
+                required
               />
             </td>
             <td className="w-[100px] border py-2 px-3">
@@ -114,16 +155,21 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
                 value={car.model}
                 onChange={(event) => handleInputChange(index, 'model', event.target.value)}
                 className="w-full border rounded py-1 px-2"
+                required
               />
             </td>
             <td className="w-[100px] border py-2 px-3">
               <input
                 type="text"
                 placeholder="Placa"
-                value={car.licencePlate}
+                value={car.licencePlate?.toUpperCase()}
                 onChange={(event) => handleInputChange(index, 'licencePlate', event.target.value)}
+                
                 className="w-full border rounded py-1 px-2"
+                required
               />
+              {car.licencePlate.length >= 5 && car.licencePlate.length <= 8 ? null : <p className='text-gray-700 text-[10px]'>entre 5 y 8 caracteres maximo</p>}
+              {!data?.success && <p className='text-red-500 text-[10px]'>{data?.msg}</p>}
             </td>
             <td className="w-[100px] border py-2 px-3">
               <input
@@ -132,6 +178,9 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
                 value={car.color}
                 onChange={(event) => handleInputChange(index, 'color', event.target.value)}
                 className="w-full border rounded py-1 px-2"
+                maxLength={8}
+                minLength={5}
+                required
               />
             </td>
             <td className="w-[100px] border py-2 px-3">
@@ -148,7 +197,7 @@ export const FamilyCommunityFormStepTwo = ({setFormData, handleEditSubmit, handl
         </tbody>
     </table>
 </div>
-{cars.length > 0 && <button onClick={handleSubmit} class="text-white  bg-[#522b5b] my-2 hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center left-0 bottom-0 absolute">Agregar</button>}
+{cars.length > 0 && <button onClick={handleSubmit}  disabled={!formIsValid} class="text-white  bg-[#522b5b] my-2 hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center left-0 bottom-0 absolute">Agregar</button>}
 </div>
         )}
       </div>
