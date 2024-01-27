@@ -18,6 +18,7 @@ export const FamilyCommunityFormStepTwo = ({setFormData, toggle, handleEditSubmi
 
   useEffect(() => {
     const isValid = cars.every(car => validateLicensePlate(car.licencePlate));
+    console.log("isvalid", isValid)
     setFormIsValid(isValid);
   }, [cars]);
 
@@ -115,7 +116,7 @@ export const FamilyCommunityFormStepTwo = ({setFormData, toggle, handleEditSubmi
       onClick={handleAddCar}
       className="bg-[#6d3978] mb-2 self-end text-white py-2 px-4 rounded"
     >
-      Add Car
+      Añadir
     </button>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -191,7 +192,7 @@ export const FamilyCommunityFormStepTwo = ({setFormData, toggle, handleEditSubmi
                 onClick={() => handleDeleteCar(index)}
                 className="bg-red-500 text-white py-1 px-2 rounded"
               >
-                Delete
+                Borrar
               </button>
             </td>
 
@@ -200,7 +201,7 @@ export const FamilyCommunityFormStepTwo = ({setFormData, toggle, handleEditSubmi
         </tbody>
     </table>
 </div>
-{cars.length > 0 && <button onClick={handleSubmit}  disabled={!formIsValid} class="text-white  bg-[#522b5b] my-2 hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center left-0 bottom-0 absolute">Agregar</button>}
+{cars.length > 0 && <button onClick={handleSubmit}  disabled={!formIsValid} class={`text-white ${formIsValid ? "bg-[#522b5b] hover:bg-[#6d3978] cursor-pointer" : "bg-gray-500"}  my-2  focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center left-0 bottom-0 absolute `}>Agregar</button>}
 </div>
         )}
       </div>
