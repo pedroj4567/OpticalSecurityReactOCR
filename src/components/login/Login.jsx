@@ -96,6 +96,10 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const passwordRegex = /^(?=.*\d).{8,}$/;
+
+    const isPasswordValid = passwordRegex.test(yourPassword);
+
     let currentErrors = {};
 
     if (!formData.email.trim()) {
@@ -106,7 +110,11 @@ const Login = () => {
       toast.error("Contraseña es requerida");
       return;
     }
-  
+
+    if(!isPasswordValid)  {
+      toast.error("La contraseña debe ser de 8 carácteres y al menos un número");
+      return;
+    }
     // Handle form submission logic here (e.g., send data to backend)
     authMethod(formData);
   };
