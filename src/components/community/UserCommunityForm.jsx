@@ -20,7 +20,6 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
     }
   }, [id])
   
- 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,8 +34,6 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
         }, 50);
     }, []);
   const [errors, setErrors] = useState({});
-
-  
 
   useEffect(() => {
     console.log(usersResponse)
@@ -71,16 +68,14 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
     if (!formData.identification.trim()) {
       currentErrors.identification = 'La identificacion es requerida';
     }
-    
-  
 
     if (Object.keys(currentErrors).length === 0) {
       // Handle form submission logic here (e.g., send data to backend)
       console.log('Form data:', formData);
       if(id){
-        patch(id, formData)
+        patch(`/person/${id}`, formData)
       }else{
-        create(formData)
+        create("/person", formData)
       }
       
       setFormData({

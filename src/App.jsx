@@ -33,6 +33,7 @@ function App() {
                 <Route path='/officer' element={<OfficerLayout/>}>
                     <Route index element={<StartPage/>}/>
                     <Route path='visits' element={<VisitsPage/>}/>
+                    <Route path='community/people' element={<CommunityPage />}/>
                     <Route path='community/family' element={<FamilyPage/>}/>
                 </Route>
             </Routes>

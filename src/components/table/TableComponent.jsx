@@ -1,7 +1,10 @@
+// TableComponent.js
 import React, { useMemo } from 'react';
+import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import { useTable, useGlobalFilter, usePagination } from 'react-table';
+import SpinnerDark from '../Spinner/SpinnerDark';
 
-const TableComponent = ({ data, columns }) => {
+const TableComponent = ({ data, columns, actionEdit, deleteAction, createAction, loading }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -18,7 +21,7 @@ const TableComponent = ({ data, columns }) => {
     {
       columns,
       data,
-      initialState: { pageSize: 5 }, // Set your initial page size here
+      initialState: { pageSize: 5 },
     },
     useGlobalFilter,
     usePagination
@@ -41,16 +44,26 @@ const TableComponent = ({ data, columns }) => {
   return (
     <div className="relative overflow-x-auto">
       {/* Global Filter */}
-      <input
-        type="text"
-        value={globalFilter || ''}
-        onChange={handleInputChange}
-        placeholder="Search..."
-        className="p-2 mb-4"
-      />
-
+      <div className='flex justify-between items-center'>
+        <input
+            type="text"
+            value={globalFilter || ''}
+            onChange={handleInputChange}
+            placeholder="Search..."
+            className="p-2 mb-4"
+        />
+        
+        <button
+            onClick={createAction}
+            className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2"
+        >
+            Crear
+            <FaPlusCircle className="w-4 h-4 ml-2" />
+        </button>
+      </div>
+     
       {/* Table */}
-      <table {...getTableProps()} className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" {...getTableProps()}>
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -59,10 +72,16 @@ const TableComponent = ({ data, columns }) => {
                   {column.render('Header')}
                 </th>
               ))}
+               {(actionEdit || deleteAction) && <th className="px-6 py-3">Actions</th>}
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
+
+       {loading ? (
+        <div className="px-6 py-20 w-full  flex justify-center items-center">
+            <SpinnerDark />
+        </div>
+       ) : (<tbody {...getTableBodyProps()}>
           {page.map((row) => {
             prepareRow(row);
             return (
@@ -72,10 +91,32 @@ const TableComponent = ({ data, columns }) => {
                     {cell.render('Cell')}
                   </td>
                 ))}
+                {
+                    (actionEdit || deleteAction) && (
+                        <td className="px-6 py-4 flex items-center gap-3">
+                        {actionEdit && (
+                          <button  className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
+                          <FaEdit className="w-4 h-4 mr-2" />
+                            Edit
+                        </button>
+                            )}
+                        {deleteAction && (
+                        <td className="px-6 py-4 whitespace-nowrap dark:text-white">
+                          <button  className="font-medium p-1 rounded bg-red-600 text-white  hover:bg-red-400 flex items-center">
+                              <FaTrashAlt className="w-4 h-4 mr-2 " />
+                              Delete
+                          </button>
+                        </td>
+                        )}
+                        </td>
+                    )
+                }
+               
               </tr>
             );
           })}
-        </tbody>
+        </tbody>)}
+
       </table>
 
       {/* Pagination */}
@@ -96,6 +137,5 @@ const TableComponent = ({ data, columns }) => {
     </div>
   );
 };
-
 
 export default TableComponent;
