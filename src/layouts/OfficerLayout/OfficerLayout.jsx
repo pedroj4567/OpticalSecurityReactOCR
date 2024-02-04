@@ -10,7 +10,8 @@ const OfficerLayout = () => {
         
           {/* <Navside/> */}
           {/* <SidebarComponent/> */}
-          <Navside />
+          {/* <Navside /> */}
+          <NavsideAdmin/>
           <Outlet/>
       
     </main>

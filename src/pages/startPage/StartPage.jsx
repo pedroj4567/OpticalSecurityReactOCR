@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Camera,SectionInfo, Spinner } from "../../components" 
 import { InfoDetail } from "../../components/startPage/InfoDetail";
 import useSimulatedRequest from "../../utils/hooks/useSimulatedRequest";
@@ -13,7 +13,12 @@ import Clock from "../../components/clock/Clock.jsx";
 import useSession from "../../utils/hooks/useSession.jsx";
 
 import { getFormattedDate } from '../../utils/helpers.js'
+import ServiceContext from "../../context/Services/ServiceContext.jsx";
+import FamilyContext from "../../context/familyContext/FamilyContext.jsx";
+import AuthContext from "../../context/authContext/AuthContext.jsx";
 const StartPage = () => {
+  const {family } = useContext(FamilyContext);
+  const {auth } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false)
   const [response, setResponse] = useState()
   const [error, setError] = useState()
@@ -24,6 +29,10 @@ const StartPage = () => {
   const baseURL = "http://localhost:3200/api/v1/recognition/upload"
   // const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/recognition/upload"
   
+  useEffect(() =>{
+    console.log(auth, family)
+  }, [auth, family])
+
   const fetchData = async () => {
     try {
       setIsLoading(true)
