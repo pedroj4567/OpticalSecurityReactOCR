@@ -47,7 +47,6 @@ function DynamicForm({ fields, onSubmit }) {
                         ? (selectedOption || []).map((option) => option.value)
                         : selectedOption ? selectedOption.value : null;
 
-                    //   setValue(field.name, value);
                       field.onChange(value);
                     }}
                     value={options.filter((option) =>

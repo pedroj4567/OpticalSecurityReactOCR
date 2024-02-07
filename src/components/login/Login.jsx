@@ -158,7 +158,10 @@ const Login = () => {
           name="password"
           onChange={handleChange}
         />
-        <Button loading={isLoadingAuth} />
+        {/* <Button loading={isLoadingAuth} /> */}
+        <div className="w-full  h-[50px] flex justify-center mt-5">
+          <button type="submit" className="border w-[340px] h-[45px] rounded-lg bg-[#522b5b] hover:bg-[#6d3978] transition-all text-[#FFFFFF]">{loading ? <Spinner/> : "Ingresar"}</button>
+        </div>
 
         <div className=" w-[90%] flex flex-col items-center gap-7 py-10">
           {/* <Link to={"/register"}>¿No tienes cuenta? Registrate</Link> */}

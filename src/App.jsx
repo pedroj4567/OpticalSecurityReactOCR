@@ -18,6 +18,7 @@ import Register from "./components/register/Register";
 import AdminLayout from "./layouts/AdminLayout.jsx/AdminLayout";
 // import { PeoplePage } from "./pages/communityPage/people/PeoplePage";
 import { FamilyPage } from "./pages/communityPage/family/FamilyPage";
+import UsersPage from "./pages/usersPage/UsersPage";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                 <Route path='/officer' element={<OfficerLayout/>}>
                     <Route index element={<StartPage/>}/>
                     <Route path='visits' element={<VisitsPage/>}/>
+                    <Route path='users' element={<UsersPage/>}/>
                     <Route path='community/people' element={<CommunityPage />}/>
                     <Route path='community/family' element={<FamilyPage/>}/>
                 </Route>

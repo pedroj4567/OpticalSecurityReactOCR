@@ -95,14 +95,14 @@ const TableComponent = ({ data, columns, actionEdit, deleteAction, createAction,
                     (actionEdit || deleteAction) && (
                         <td className="px-6 py-4 flex items-center gap-3">
                         {actionEdit && (
-                          <button  className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
+                          <button onClick={() => actionEdit(row.original.uuid)} className="font-medium bg-blue-600 p-1 rounded text-white hover:bg-blue-400 flex items-center">
                           <FaEdit className="w-4 h-4 mr-2" />
                             Edit
                         </button>
                             )}
                         {deleteAction && (
                         <td className="px-6 py-4 whitespace-nowrap dark:text-white">
-                          <button  className="font-medium p-1 rounded bg-red-600 text-white  hover:bg-red-400 flex items-center">
+                          <button onClick={() => deleteAction(row.original.uuid)} className="font-medium p-1 rounded bg-red-600 text-white  hover:bg-red-400 flex items-center">
                               <FaTrashAlt className="w-4 h-4 mr-2 " />
                               Delete
                           </button>

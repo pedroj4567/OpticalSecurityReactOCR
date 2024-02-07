@@ -40,6 +40,10 @@ const NavsideAdmin = () => {
       title: "Visitas",
       link: "/Admin/visits",
     },
+    {
+      title: "Visitas",
+      link: "/Admin/users",
+    },
     // {
     //   title: "Comunidad",
     //   link: "/Admin/community",
@@ -87,10 +91,24 @@ const NavsideAdmin = () => {
   return (
     <>
       {/* Small devices (e.g., mobile) */}
-      <nav className="lg:hidden w-full fixed">
+      <nav className="lg:hidden w-full fixed ">
         {/* Render a top navigation bar for small devices */}
         <div className="bg-[#522b5b] text-[#DAFFFB] flex justify-between items-center p-4 w-full">
           <p className="font-bold text-2xl">Optical<span className="text-slate-300">Shield</span></p>
+          <div className="flex items-cente gap-3">
+          {
+            navLinks.map((link,index) => (
+              <Link
+              key={index}
+              to={link.link}
+              className=" hover:bg-[#FFFFFF]/75 rounded-md  hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
+            >
+              {" "}
+              <span className="text">{link.title}</span>
+            </Link>
+            ))
+          }
+        </div>
           <button
             onClick={() => setMenuIsOpen(!menuIsOpen)}
             className="text-white focus:outline-none"
@@ -98,6 +116,8 @@ const NavsideAdmin = () => {
             {menuIsOpen ? 'Close' : 'Menu'}
           </button>
         </div>
+        
+        
 
         {/* Render navigation links or menu based on menuIsOpen state */}
         {/* {menuIsOpen ? (
@@ -161,7 +181,7 @@ const NavsideAdmin = () => {
       {isCommunityOpen && 
       <>
         <Link
-          to={"/Admin/peoples"}
+          to={"/Admin/people"}
           className=" hover:bg-[#FFFFFF]/75 rounded-md bg-[#46234e] hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
           >
           {""}
