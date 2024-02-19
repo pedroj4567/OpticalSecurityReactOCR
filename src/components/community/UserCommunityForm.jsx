@@ -19,7 +19,6 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
       fetchUsersData()
     }
   }, [id])
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +74,8 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
       if(id){
         patch(`/person/${id}`, formData)
       }else{
-        create("/person", formData)
+        // create("/person", formData)
+        create(formData)
       }
       
       setFormData({
@@ -90,8 +90,6 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
     }
   };
 
- 
-
   return (
     <>
  <div className="fixed z-20 top-0 left-0 w-full h-full flex items-center justify-center">
@@ -100,8 +98,7 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
         onSubmit={handleSubmit}
            className={`shadow-lg h-1/2 relative bg-white items-center py-12 px-6 border  rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
         >
-                    <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
-
+            <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
             <div className="text-center mb-2 text-2xl">
                 {id ? 
                 <h2 className="mb-4 text-gray-700">Editar <span className="text-[#61366b] font-semibold">usuario</span></h2>
@@ -129,11 +126,8 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
                 {errors.identification && <p className="text-red-500 text-xs mt-1">{errors.identification}</p>}
                 <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#61366b] peer-focus:dark:text-[#61366b] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Identificacion</label>
             </div>
-            <button type="submit" class="text-white w-full bg-[#522b5b] hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
-            
+            <button type="submit" class="text-white bg-[#522b5b] hover:bg-[#6d3978] focus:ring-4 focus:outline-none focus:ring-[#6d3978] font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center ">Agregar</button>
         </form>
-      
-        
     </div>
     </>
   )

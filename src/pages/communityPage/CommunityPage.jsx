@@ -6,6 +6,7 @@ import TableComponent from "../../components/table/TableComponent";
 import { UserCommunityForm } from "../../components/community/UserCommunityForm";
 import ErrorMessage from "../../components/messages/ErrorMessage";
 import DynamicForm from "../../components/form/DinamycForm";
+import TwoStepDynamicForm from "../../components/form/TwoStepsDinamycForm";
 
 const CommunityPage = () => {
   const { 
@@ -64,7 +65,7 @@ const CommunityPage = () => {
   const fields = [
     { name: 'name', label: 'Name', default: 'John' },
     { name: 'lastname', label: 'Last Name', default: 'Doe' },
-    { name: 'n_phone', label: 'Phone Number', type: 'number', default: 123456789 },
+    { name: 'n_phone', label: 'Phone Number', type: 'number',  },
     { name: 'identification', label: 'Identification', default: 'ABC123' },
     { name: 'gender', label: 'Gender', type: 'select', isMulti: false, options: [
       { value: 'male', label: 'Male' },
@@ -72,6 +73,37 @@ const CommunityPage = () => {
       { value: 'other', label: 'Other' },
     ], default: 'male' },
     // ... other fields
+  ];
+
+  const steps = [
+    [
+      { name: 'name', label: 'Name', type: 'text', default: '', errorMsg: 'Name is required' },
+      { name: 'email', label: 'Email', type: 'text', default: '', errorMsg: 'Email is required' },
+    ],
+    [
+      { name: 'age', label: 'Age', type: 'number', default: 0, errorMsg: 'Age is required' },
+      { name: 'gender', label: 'Gender', type: 'select', isMulti: true, options: [
+        { value: 'male', label: 'Male' },
+        { value: 'female', label: 'Female' },
+        { value: 'other', label: 'Other' },
+      ], default: '', errorMsg: 'Gender is required' },
+    ],
+    [
+      { name: 'age', label: 'Age', type: 'number', default: 0, errorMsg: 'Age is required' },
+      { name: 'gender', label: 'Gender', type: 'select', isMulti: true, options: [
+        { value: 'male', label: 'Male' },
+        { value: 'female', label: 'Female' },
+        { value: 'other', label: 'Other' },
+      ], default: '', errorMsg: 'Gender is required' },
+    ],
+    [
+      { name: 'age', label: 'Age', type: 'number', default: 0, errorMsg: 'Age is required' },
+      { name: 'gender', label: 'Gender', type: 'select', isMulti: true, options: [
+        { value: 'male', label: 'Male' },
+        { value: 'female', label: 'Female' },
+        { value: 'other', label: 'Other' },
+      ], default: '', errorMsg: 'Gender is required' },
+    ],
   ];
 
   const handleFormSubmit = (data) => {
@@ -83,8 +115,9 @@ const CommunityPage = () => {
       <main>
         <div className="mt-20"></div>
         {/* <CommunityComponent /> */}
-        <DynamicForm fields={fields} onSubmit={handleFormSubmit} />
-        {/* {isFormOpen && (
+        {/* <DynamicForm fields={fields} onSubmit={handleFormSubmit} /> */}
+        {/* <TwoStepDynamicForm steps={steps} onSubmit={handleFormSubmit} /> */}
+        {isFormOpen && (
         <UserCommunityForm
           formData={formData}
           setFormData={setFormData}
@@ -104,7 +137,7 @@ const CommunityPage = () => {
           id={currentUserId}
         />
       )}
-        <TableComponent data={data? data.people : []} columns={columns} loading={loading} actionEdit={"fef"} createAction={toggleForm}/> */}
+        <TableComponent data={data? data.people : []} columns={columns} loading={loading} actionEdit={"fef"} createAction={toggleForm}/>
       </main>
     </section>
   );

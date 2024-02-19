@@ -4,7 +4,7 @@ import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import { useTable, useGlobalFilter, usePagination } from 'react-table';
 import SpinnerDark from '../Spinner/SpinnerDark';
 
-const TableComponent = ({ data, columns, actionEdit, deleteAction, createAction, loading }) => {
+const TableComponent = ({ data, columns, totalPages, next, before, actionEdit, deleteAction, createAction, loading }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -21,7 +21,7 @@ const TableComponent = ({ data, columns, actionEdit, deleteAction, createAction,
     {
       columns,
       data,
-      initialState: { pageSize: 5 },
+      initialState: { pageSize: totalPages ? totalPages : 1 },
     },
     useGlobalFilter,
     usePagination
@@ -127,10 +127,10 @@ const TableComponent = ({ data, columns, actionEdit, deleteAction, createAction,
             {pageIndex + 1} of {paginationProps.pageCount}
           </strong>{' '}
         </span>
-        <button onClick={() => previousPage()} disabled={!canPreviousPage} className="ml-2 px-2 py-1 bg-blue-500 text-white rounded">
+        <button onClick={before ? before :() => previousPage()} disabled={!canPreviousPage} className="ml-2 px-2 py-1 bg-blue-500 text-white rounded">
           Previous
         </button>
-        <button onClick={() => nextPage()} disabled={!canNextPage} className="ml-2 px-2 py-1 bg-blue-500 text-white rounded">
+        <button onClick={next ? next :() => nextPage()} disabled={!canNextPage} className="ml-2 px-2 py-1 bg-blue-500 text-white rounded">
           Next
         </button>
       </div>

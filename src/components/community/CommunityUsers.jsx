@@ -68,6 +68,7 @@ const CommunityUsers = ({ fetchData, response, loading, error }) => {
     console.log("executing");
     console.log(body);
     try {
+      console.log("entro")
       setIsLoadingCreate(true);
       const { data } = await axios.post(`${baseURL}`, {
         dataUser: body,

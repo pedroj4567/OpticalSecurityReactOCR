@@ -7,11 +7,19 @@ import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import { FamilyCommunityForm } from "./FamilyCommunityForm";
 import { FamilyCommunityFormStepTwo } from "./FamilyCommunityFormStepTwo";
 import axios from "axios";
+import TableComponent from "../table/TableComponent";
+import useAxios from "../../utils/axios/useAxios";
 
 
 
-const CommunityFamily = ({fetchData, response, loading, error}) => {
+const CommunityFamily = () => {
 
+  // const { response, loading, error, fetchData} = useAxios({
+  //   method: 'get',
+  //   url: 'family',
+  // });
+  const {fetchData, error, loading, data} = useAxios()
+  const [currentPage, setCcurrentPage] = useState(1)
   const [users, setUsers] = useState([])
   const [isLoading, setIsLoading] = useState(false)
     const [isFormOpen, setIsFormOpen] = useState(false)
@@ -35,7 +43,7 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
     const [errorPatch, setErrorPatch] = useState()
 
     useEffect(() => {
-      fetchData()
+      fetchData("/family")
     }, [responseCreate, responseDelete, responsePatch, responseUpdate]);
 
   // function toggleForm() {
@@ -125,6 +133,20 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
      
     };
 
+    function nextPage() {
+      setCcurrentPage(prev => prev++)
+      fetchData(`family/?page=${currentPage}`)
+    }
+
+    function previousPage(){
+      if(currentPage === 1){
+        return null
+      }else{
+        fetchData(`family/?page=${currentPage}`)
+        setCcurrentPage(prev => prev--)
+      }
+    }
+
     const patchMethod = async (id, body) => {
       try {
         setIsLoadingPatch(true)
@@ -152,21 +174,19 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
     };
 
     useEffect(() => {
-        console.log(response, error, loading)
+        console.log(data, error, loading)
 
-    }, [response, error])
+    }, [data, error])
   
     const fetchDataUsers = async () => {
       try {
        
         const request = await fetch("http://localhost:3200/api/v1/person",{})
         const data = await request.json();
-  
         return data;
       } catch (error) {
         console.log(error)
       }
-     
     };
 
     async function usersSelect() {
@@ -180,13 +200,24 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
         const { people } = await fetchDataUsers();
         setUsers([...people])
       }
-  
+      const columns = [
+        { Header: 'ID', accessor: 'id' },
+        { Header: 'Nombre', accessor: 'name' },
+        { Header: 'Direccion', accessor: 'n_address' },
+        // { Header: 'Telefono', accessor: 'n_phone' },
+        // { Header: 'Cedula', accessor: 'identification' },
+      ];
+
     return (
       <section className="w-[100%] mt-10 flex flex-col">
-      
+          {loading ?
+          <SpinnerDark />
+          :
+          <TableComponent data={data? data.results : []} columns={columns} loading={loading} actionEdit={openEditForm} deleteAction={openDeleteModal} createAction={toggleForm}/>}
+
         {isDeleteOpen && <ErrorMessage msg={"¿Estás seguro que quieres eliminar?"} btnMsg={"Eliminar"} close={closeDeleteModal} action={deleteMethod} id={currentUserId}/>}
         {isFormOpen && <FamilyCommunityForm users={users} usersSelect={usersSelect} setId={setCurrentUserId} id={currentUserId} toggleForm={toggleForm} edit={updateMethod} patch={patchMethod} create={postMethod} />}
-          <button onClick={toggleForm}  className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
+          {/* <button onClick={toggleForm}  className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2">
               Crear
               <FaPlusCircle className="w-4 h-4 ml-2" />
           </button>
@@ -266,7 +297,7 @@ const CommunityFamily = ({fetchData, response, loading, error}) => {
                  
                     
             </table>
-        </div>
+        </div>  */}
       </section>
     )
   }

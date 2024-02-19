@@ -13,10 +13,7 @@ export const FamilyComponent = () => {
         <div className='flex flex-col flex-1 '>
         
          <CommunityFamily 
-            response={familyResponse}
-            loading={familyLoading}
-            error={familyError}
-            fetchData={fetchFamilyData}
+       
           />
            
         </div>
