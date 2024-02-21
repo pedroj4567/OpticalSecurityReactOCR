@@ -20,6 +20,7 @@ const useAxios = () => {
  };
 
  const createData = async (endpoint, newData) => {
+  console.log("data post", newData)
     setLoading(true);
     try {
       const response = await clientAxios.post(endpoint, newData);
@@ -32,6 +33,8 @@ const useAxios = () => {
  };
 
  const updateData = async (endpoint, updatedData) => {
+  console.log("data put", updatedData)
+
     setLoading(true);
     try {
       const response = await clientAxios.patch(endpoint, updatedData);

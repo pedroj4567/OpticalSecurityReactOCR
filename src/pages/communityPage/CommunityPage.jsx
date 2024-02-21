@@ -137,7 +137,7 @@ const CommunityPage = () => {
           id={currentUserId}
         />
       )}
-        <TableComponent data={data? data.people : []} columns={columns} loading={loading} actionEdit={"fef"} createAction={toggleForm}/>
+        <TableComponent data={data? data.people : []} columns={columns} loading={loading} actionEdit={openEditForm} createAction={toggleForm}/>
       </main>
     </section>
   );
