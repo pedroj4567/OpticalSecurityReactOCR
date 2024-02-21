@@ -29,15 +29,18 @@ const Login = () => {
       localStorage.setItem("authToken", data.token);
       setResponseAuth(data);
     }
-       if (error) {
-        console.log("fucniono");
-        setIsLoadingAuth(false);
-
-        const { data } = error.response;
-        toast.error(data.msg);
-        return;
-      }
+   
   }, [data])
+  useEffect(() => {
+    if (error) {
+      console.log("fucniono");
+      setIsLoadingAuth(false);
+
+      const { data } = error.response;
+      toast.error(data.msg);
+      return;
+    }
+  }, [error])
   // const baseURL = "http://localhost:3200/api/v1/auth/login"
 
   // const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/auth/login"
