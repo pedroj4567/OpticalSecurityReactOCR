@@ -41,7 +41,7 @@ const NavsideAdmin = () => {
       link: "/Admin/visits",
     },
     {
-      title: "Visitas",
+      title: "Users",
       link: "/Admin/users",
     },
     // {
@@ -90,52 +90,7 @@ const NavsideAdmin = () => {
 
   return (
     <>
-      {/* Small devices (e.g., mobile) */}
-      <nav className="lg:hidden w-full fixed ">
-        {/* Render a top navigation bar for small devices */}
-        <div className="bg-[#522b5b] text-[#DAFFFB] flex justify-between items-center p-4 w-full">
-          <p className="font-bold text-2xl">Optical<span className="text-slate-300">Shield</span></p>
-          <div className="flex items-cente gap-3">
-          {
-            navLinks.map((link,index) => (
-              <Link
-              key={index}
-              to={link.link}
-              className=" hover:bg-[#FFFFFF]/75 rounded-md  hover:text-[#001C30]  transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4 "
-            >
-              {" "}
-              <span className="text">{link.title}</span>
-            </Link>
-            ))
-          }
-        </div>
-          <button
-            onClick={() => setMenuIsOpen(!menuIsOpen)}
-            className="text-white focus:outline-none"
-          >
-            {menuIsOpen ? 'Close' : 'Menu'}
-          </button>
-        </div>
-        
-        
-
-        {/* Render navigation links or menu based on menuIsOpen state */}
-        {/* {menuIsOpen ? (
-          <div className="bg-[#522b5b] text-[#DAFFFB] flex flex-col">
-            {renderNavLinks()}
-            <div
-              onClick={toggleCommunity}
-              className="hover:bg-[#FFFFFF]/75 rounded-md hover:text-[#001C30] transition-all py-2 mx-2 mb-3 text-lg flex items-center justify-start pl-4"
-            >
-              <div className="w-full flex items-center justify-between mr-4">
-                <span className="text">Comunidades</span>
-                {isCommunityOpen ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
-              </div>
-            </div>
-            {isCommunityOpen && renderCommunityLinks()}
-          </div>
-        ) : null} */}
-      </nav>
+    
 
       {/* Large devices (e.g., desktop) */}
       <aside className="hidden lg:flex flex-col h-screen fixed">

@@ -29,6 +29,14 @@ const Login = () => {
       localStorage.setItem("authToken", data.token);
       setResponseAuth(data);
     }
+       if (error) {
+        console.log("fucniono");
+        setIsLoadingAuth(false);
+
+        const { data } = error.response;
+        toast.error(data.msg);
+        return;
+      }
   }, [data])
   // const baseURL = "http://localhost:3200/api/v1/auth/login"
 
