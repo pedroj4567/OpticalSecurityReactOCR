@@ -61,8 +61,8 @@ const CommunityUsers = ({ fetchData, response, loading, error }) => {
     setIsFormOpen((prev) => !prev);
   }
 
-  const baseURL = "http://localhost:3200/api/v1/person";
-  // const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/person"
+  // const baseURL = "http://localhost:3200/api/v1/person";
+  const baseURL = "https://5ff8-186-92-128-224.ngrok-free.app/api/v1/person"
 
   const postMethod = async (body) => {
     console.log("executing");

@@ -42,7 +42,7 @@ const NavsideAdmin = () => {
     },
     {
       title: "Users",
-      link: "/Admin/users",
+      link: "/Admin/people",
     },
     // {
     //   title: "Comunidad",
@@ -93,7 +93,7 @@ const NavsideAdmin = () => {
     
 
       {/* Large devices (e.g., desktop) */}
-      <aside className="hidden lg:flex flex-col h-screen fixed">
+      <aside className=" lg:flex flex-col h-screen fixed">
       <ButtonNavSide menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
 
 <nav

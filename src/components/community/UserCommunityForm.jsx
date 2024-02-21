@@ -74,8 +74,9 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
       if(id){
         patch(`/person/${id}`, formData)
       }else{
-        // create("/person", formData)
-        create(formData)
+        create("/person", formData)
+        console.log("entro form")
+        // create(formData)
       }
       
       setFormData({
@@ -96,7 +97,7 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
     <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>    
         <form 
         onSubmit={handleSubmit}
-           className={`shadow-lg h-1/2 relative bg-white items-center py-12 px-6 border  rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
+           className={`shadow-lg h-4/5 relative bg-white items-center py-16 px-8 border  rounded-md flex flex-col justify-evenly overflow-hidden ${isVisible ? 'transform translate-y-0 transition-transform duration-500' : 'transform translate-y-[-300%]'}`}
         >
             <IoMdCloseCircle onClick={toggleForm} className='absolute top-4 right-4'/>
             <div className="text-center mb-2 text-2xl">

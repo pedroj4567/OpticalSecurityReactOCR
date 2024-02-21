@@ -135,14 +135,14 @@ const CommunityFamily = () => {
 
     function nextPage() {
       setCcurrentPage(prev => prev++)
-      fetchData(`family/?page=${currentPage}`)
+      fetchData(`family/?page=${currentPage}?size=10`)
     }
 
     function previousPage(){
       if(currentPage === 1){
         return null
       }else{
-        fetchData(`family/?page=${currentPage}`)
+        fetchData(`family/?page=${currentPage}?size=10`)
         setCcurrentPage(prev => prev--)
       }
     }

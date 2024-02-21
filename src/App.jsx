@@ -59,7 +59,7 @@ function App() {
           >
             <Route index element={<StartPage />} />
             <Route path="visits" element={<VisitsPage />} />
-            <Route path="peoples" element={<CommunityPage />} />
+            <Route path="people" element={<CommunityPage />} />
             <Route path="family" element={<FamilyPage />} />
           </Route>
 
