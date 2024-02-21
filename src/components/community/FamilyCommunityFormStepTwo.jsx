@@ -56,7 +56,7 @@ export const FamilyCommunityFormStepTwo = ({setFormData, toggle, handleEditSubmi
           // Make the API call with the new licensePlate value
           createData(
           "/car/verify", {
-            plate: value?.toLowerCase()
+            plate: value
           }
           );
         }
