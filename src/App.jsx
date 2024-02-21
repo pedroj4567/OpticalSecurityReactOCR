@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes >
+        {/* <Routes >
                 <Route path='/' element={<AuthLayout/>}>
                     <Route index element={<LoginPage/>}/>
                     <Route path='verify' element={<SendEmailVerificationPage/>}/>
@@ -38,9 +38,9 @@ function App() {
                     <Route path='community/people' element={<CommunityPage />}/>
                     <Route path='community/family' element={<FamilyPage/>}/>
                 </Route>
-            </Routes>
+            </Routes> */}
             
-        {/* <Routes>
+        <Routes>
           <Route path="/" element={<AuthLayout />}>
             <Route index element={<LoginPage />} />
             <Route path="register" element={<Register />} />
@@ -75,7 +75,7 @@ function App() {
             <Route index element={<StartPage />} />
             <Route path="visits" element={<VisitsPage />} />
           </Route>
-        </Routes>  */}
+        </Routes> 
       </BrowserRouter>
     </>
   );

@@ -7,6 +7,7 @@ import { decodeToken } from "../../utils/decodeToken";
 import { checkAuth } from "../../utils/checkAuth";
 import useAxios from "../../utils/axios/useAxios";
 import toast, { Toaster } from "react-hot-toast";
+import Spinner from "../Spinner/Spinner";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -96,9 +97,9 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const passwordRegex = /^(?=.*\d).{8,}$/;
+    // const passwordRegex = /^(?=.*\d).{8,}$/;
 
-    const isPasswordValid = passwordRegex.test(formData.password);
+    // const isPasswordValid = passwordRegex.test(formData.password);
 
     let currentErrors = {};
 
@@ -111,10 +112,10 @@ const Login = () => {
       return;
     }
 
-    if(!isPasswordValid)  {
-      toast.error("La contraseña debe ser de 8 carácteres y al menos un número");
-      return;
-    }
+    // if(!isPasswordValid)  {
+    //   toast.error("La contraseña debe ser de 8 carácteres y al menos un número");
+    //   return;
+    // }
     // Handle form submission logic here (e.g., send data to backend)
     authMethod(formData);
   };
