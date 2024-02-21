@@ -41,7 +41,7 @@ const NavsideAdmin = () => {
       link: "/Admin/visits",
     },
     {
-      title: "Users",
+      title: "Habitantes",
       link: "/Admin/people",
     },
     // {
