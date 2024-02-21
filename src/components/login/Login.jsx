@@ -118,10 +118,16 @@ const Login = () => {
 
     if (!formData.email.trim()) {
       currentErrors.email = "El email es requerido";
+      toast.error("Email es requerido");
     }
    
     if (!formData.password.trim()) {
       toast.error("Contraseña es requerida");
+      return;
+    }
+
+    if (!formData.password.length < 4) {
+      toast.error("La contraseña debe ser mayor a 4 caracteres");
       return;
     }
 
