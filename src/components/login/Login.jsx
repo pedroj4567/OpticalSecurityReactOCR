@@ -22,6 +22,14 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const { createData, data, error, loading } = useAxios();
 
+  useEffect(() => {
+    console.log(data)
+    if (data?.token) {
+      // Save the token to local storage
+      localStorage.setItem("authToken", data.token);
+      setResponseAuth(data);
+    }
+  }, [data])
   // const baseURL = "http://localhost:3200/api/v1/auth/login"
 
   // const baseURL = "https://558f-186-92-40-5.ngrok-free.app/api/v1/auth/login"
@@ -37,20 +45,17 @@ const Login = () => {
         },
       });
 
-      if (error) {
-        console.log("fucniono");
-        setIsLoadingAuth(false);
 
-        const { data } = error.response;
-        toast.error(data.msg);
-        return;
-      }
+      // if (error) {
+      //   console.log("fucniono");
+      //   setIsLoadingAuth(false);
 
-      if (data.token) {
-        // Save the token to local storage
-        localStorage.setItem("authToken", data.token);
-        setResponseAuth(data);
-      }
+      //   const { data } = error.response;
+      //   toast.error(data.msg);
+      //   return;
+      // }
+
+    
     } catch (error) {
       setErrorAuth(error);
     } finally {
