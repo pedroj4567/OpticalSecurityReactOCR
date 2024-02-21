@@ -53,13 +53,13 @@ const TableComponent = ({ data, columns, totalPages, next, before, actionEdit, d
             className="p-2 mb-4"
         />
         
-        <button
+      {createAction &&  <button
             onClick={createAction}
             className="font-medium bg-[#522b5b] hover:bg-purple-600 text-white flex items-center self-end p-1 rounded shadow-sm mb-2"
         >
             Crear
             <FaPlusCircle className="w-4 h-4 ml-2" />
-        </button>
+        </button>}
       </div>
      
       {/* Table */}
