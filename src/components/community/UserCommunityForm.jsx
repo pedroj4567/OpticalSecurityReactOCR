@@ -72,7 +72,9 @@ export const UserCommunityForm = ({id, setId, toggleForm, edit, patch, create, f
       // Handle form submission logic here (e.g., send data to backend)
       console.log('Form data:', formData);
       if(id){
-        patch(`/person/${id}`, formData)
+        patch(`/person/${id}`, {
+          newData: formData
+        })
       }else{
         create("/person", formData)
         console.log("entro form")

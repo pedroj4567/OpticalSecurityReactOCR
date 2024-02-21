@@ -133,11 +133,12 @@ const CommunityPage = () => {
           msg={"¿Estás seguro que quieres eliminar?"}
           btnMsg={"Eliminar"}
           close={closeDeleteModal}
+          url="person"
           action={deleteData}
           id={currentUserId}
         />
       )}
-        <TableComponent data={data? data.people : []} columns={columns} loading={loading} actionEdit={openEditForm} createAction={toggleForm}/>
+        <TableComponent data={data? data.people : []} columns={columns} loading={loading} actionEdit={openEditForm} createAction={toggleForm} deleteAction={openDeleteModal}/>
       </main>
     </section>
   );

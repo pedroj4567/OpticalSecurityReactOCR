@@ -2,7 +2,7 @@ import { MdErrorOutline } from "react-icons/md";
 import { useEffect, useState } from 'react';
 import { IoMdCloseCircle } from "react-icons/io";
 
-const ErrorMessage = ({ msg, close, action, btnMsg, isCompleted, id }) => {
+const ErrorMessage = ({ msg, close, action, btnMsg, isCompleted, id, url }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -12,7 +12,8 @@ const ErrorMessage = ({ msg, close, action, btnMsg, isCompleted, id }) => {
     }, []);
 
     function nextActionErrorMsg() {
-            action(id);
+            // action(id);
+            action(`/person/${id}`);
             close()
     }
 
