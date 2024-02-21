@@ -13,6 +13,8 @@ export const FamilyCommunityFormStepTwo = ({setFormData, toggle, handleEditSubmi
 
     const [plateIsValid, setPlateIsValid] = useState(false)
     const {createData, data, loading, error} = useAxios()
+    const { data: dataDelete, loading: loadingDelete, error: erroDelete, deleteData} = useAxios()
+
 
     const [formIsValid, setFormIsValid] = useState(false);
 
@@ -69,10 +71,16 @@ export const FamilyCommunityFormStepTwo = ({setFormData, toggle, handleEditSubmi
         }));
       };
     
-      const handleDeleteCar = (index) => {
-        const newCars = [...cars];
-        newCars.splice(index, 1);
-        setCars(newCars);
+      const handleDeleteCar = async (index, uuid) => {
+        if(id){
+          const res = await deleteData(`car/${uuid}`)
+          console.log(res)
+        }else{
+          const newCars = [...cars];
+          newCars.splice(index, 1);
+          setCars(newCars);
+        }
+       
       };
     
       const handleEditCar = (index) => {
@@ -189,7 +197,7 @@ export const FamilyCommunityFormStepTwo = ({setFormData, toggle, handleEditSubmi
             </td>
             <td className="w-[100px] border py-2 px-3">
               <button
-                onClick={() => handleDeleteCar(index)}
+                onClick={() => handleDeleteCar(index, car.uuid)}
                 className="bg-red-500 text-white py-1 px-2 rounded"
               >
                 Borrar
