@@ -39,7 +39,7 @@ function App() {
                     <Route path='community/family' element={<FamilyPage/>}/>
                 </Route>
             </Routes> */}
-            
+
         <Routes>
           <Route path="/" element={<AuthLayout />}>
             <Route index element={<LoginPage />} />
@@ -48,34 +48,18 @@ function App() {
             <Route path="remember" element={<RememberPswPage />} />
           </Route>
 
-          <Route
-            path="/Admin"
-            element={
-              <RequireAuth
-                allowedRoles={["Admin"]} // Adjust the allowed roles based on your requirements
-                layout={AdminLayout}
-              />
-            }
-          >
+          <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<StartPage />} />
             <Route path="visits" element={<VisitsPage />} />
             <Route path="people" element={<CommunityPage />} />
             <Route path="family" element={<FamilyPage />} />
           </Route>
 
-          <Route
-            path="/officer"
-            element={
-              <RequireAuth
-                allowedRoles={["Officer"]} // Adjust the allowed roles based on your requirements
-                layout={OfficerLayout}
-              />
-            }
-          >
+          <Route path="/officer" element={<OfficerLayout />}>
             <Route index element={<StartPage />} />
             <Route path="visits" element={<VisitsPage />} />
           </Route>
-        </Routes> 
+        </Routes>
       </BrowserRouter>
     </>
   );
