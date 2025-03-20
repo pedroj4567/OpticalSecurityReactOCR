@@ -13,12 +13,12 @@ import RememberPswPage from "./pages/authPages/rememberPsw/RememberPswPage";
 import CommunityPage from "./pages/communityPage/CommunityPage";
 // import { ScanPlatePage } from "./pages/ScanPlatePage/ScanPlatePage";
 // import { PrivateRoute } from "./utils/PrivateRoute";
-import RequireAuth from "./utils/RequiredAuth";
+// import RequireAuth from "./utils/RequiredAuth";
 import Register from "./components/register/Register";
 import AdminLayout from "./layouts/AdminLayout.jsx/AdminLayout";
 // import { PeoplePage } from "./pages/communityPage/people/PeoplePage";
 import { FamilyPage } from "./pages/communityPage/family/FamilyPage";
-import UsersPage from "./pages/usersPage/UsersPage";
+// import UsersPage from "./pages/usersPage/UsersPage";
 
 function App() {
   return (
